@@ -23,7 +23,7 @@ rem build src - builds sdist
 rem build whl - builds bdist_wheel
 rem build egg - builds bdist_egg
 rem build win - builds bdist_wininst
-rem build py2exe - builds windows exe
+rem build py2exe - builds windows exe on Py2 only for the moment
 rem build cxf - not working for the moment
 rem build pypi - uploads dists to PyPI
 rem build pypitest - uploads dists to test
@@ -32,7 +32,7 @@ rem build clean - clears dirs and files
 rem build doc - builds doc
 rem
 rem Requires:
-rem Python, Sphinx, rst2pdf or Miktex, pytest, pytest-cov, twine, py2exe, cxf.
+rem Python, Sphinx, Miktex, pytest, pytest-cov, twine, py2exe, cxf.
 
 set OLDPATH=%PATH%
 
@@ -124,6 +124,7 @@ echo.
 echo *** Sphinx
 echo.
 set SPHINXOPTS=-E
+set PATH=d:\miktex\miktex\bin;%PATH%
 
 copy /y README.rst README.rst.bak > nul
 cd doc
@@ -139,29 +140,15 @@ cmd /c make clean
 if not exist index.ori ren index.rst index.ori
 python ..\setup_utils.py prep_rst2pdf()
 
-echo.
-echo *** rst2pdf
-echo.
-cmd /c make pdf
-copy /y _build\pdf\%PROJECT%.pdf ..\%PROJECT%\doc > nul
-echo.
-echo.
-echo *** Don't forget to open the PDF created by rst2pdf and save it. This reduces it's size by almost half.
-echo.
-
-rem echo.
-rem echo *** Miktex
-rem echo.
-rem set PATH=d:\miktex\miktex\bin;%PATH%
-rem cmd /c make latex
-rem cd _build\latex
-rem pdflatex.exe %PROJECT%.tex
-rem echo ***
-rem echo *** Repeat to correct references
-rem echo ***
-rem pdflatex.exe %PROJECT%.tex
-rem copy /y %PROJECT%.pdf ..\..\..\%PROJECT%\doc > nul
-rem cd ..\..
+cmd /c make latex
+cd _build\latex
+pdflatex.exe %PROJECT%.tex
+echo ***
+echo *** Repeat to correct references
+echo ***
+pdflatex.exe %PROJECT%.tex
+copy /y %PROJECT%.pdf ..\..\..\%PROJECT%\doc > nul
+cd ..\..
 
 if exist index.rst del index.rst
 ren index.ori index.rst

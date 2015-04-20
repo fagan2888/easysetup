@@ -294,6 +294,8 @@ if __name__ == '__main__':
     # doctest.testmod(verbose=True)
     sys.exit(main())
 
-
 # TODO: sync README.rst and usage.txt
+# TODO: add appveyor templates
+# TODO: py2exe in Py3
+# TODO: CXF in Py2 and Py3
 # TODO: checks and error messages

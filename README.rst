@@ -20,6 +20,15 @@ easysetup
 After running easysetup, you can find a build.cmd in the current directory that should be run to build your application (check the comments inside the file for usage).
 When running easysetup without options, if there are any files on the current directory, they are moved to a _bak directory.
 
+To do
+-----
+
+Sync README.rst and usage.txt.
+Add appveyor templates.
+py2exe in Py3.
+CXF in Py2 and Py3.
+Checks and error messages.
+
 Installation
 ------------
 
@@ -43,11 +52,11 @@ Options
     usage: easysetup [-option]
 
     optional arguments:
-	  -d, --doc             creates template files in the doc directory
-	  -h, --help            show this help message
-	  -l, --license         show license
-	  -r, --reference       creates an updated reference.rst in the doc directory
-	  -v, --version         show version
+      -d, --doc             creates template files in the doc directory
+      -h, --help            show this help message
+      -l, --license         show license
+      -r, --reference       creates an updated reference.rst in the doc directory
+      -v, --version         show version
 
     No arguments creates setup files.
     easysetup should always be run from the application setup directory.
@@ -68,4 +77,3 @@ Contributing
 
 .. _repository: https://github.com/jcrmatos/easysetup
 
-Copyright 2009-2015 Joao Carlos Roseta Matos. Licensed under the GNU General Public License v2 or later (GPLv2+).

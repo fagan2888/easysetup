@@ -23,13 +23,13 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 # sometimes py2exe requires the following import to be commented
-from __future__ import unicode_literals
+#from __future__ import unicode_literals
 
 import datetime as dt
 
 
-APP_NAME = b'easysetup'
-APP_VERSION = '0.0.1'
+APP_NAME = 'easysetup'
+APP_VERSION = '0.0.2'
 LICENSE = 'GNU General Public License v2 or later (GPLv2+)'
 URL = 'https://github.com/jcrmatos/easysetup'
 AUTHOR = 'Joao Carlos Roseta Matos'

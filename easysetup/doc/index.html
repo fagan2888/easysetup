@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>easysetup &mdash; easysetup 0.0.1 documentation</title>
+    <title>easysetup &mdash; easysetup 0.0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.1',
+        VERSION:     '0.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="easysetup 0.0.1 documentation" href="#" />
+    <link rel="top" title="easysetup 0.0.2 documentation" href="#" />
     <link rel="next" title="Reference" href="reference.html" />
    
   
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="reference.html" title="Reference"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">easysetup 0.0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">easysetup 0.0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -71,6 +71,14 @@
 </ul>
 <p>After running easysetup, you can find a build.cmd in the current directory that should be run to build your application (check the comments inside the file for usage).
 When running easysetup without options, if there are any files on the current directory, they are moved to a _bak directory.</p>
+<div class="section" id="to-do">
+<h2>To do<a class="headerlink" href="#to-do" title="Permalink to this headline">¶</a></h2>
+<p>Sync README.rst and usage.txt.
+Add appveyor templates.
+py2exe in Py3.
+CXF in Py2 and Py3.
+Checks and error messages.</p>
+</div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <div class="code bash highlight-python"><div class="highlight"><pre>$ pip install easysetup
@@ -89,11 +97,11 @@ When running easysetup without options, if there are any files on the current di
 usage: easysetup [-option]
 
 optional arguments:
-      -d, --doc             creates template files in the doc directory
-      -h, --help            show this help message
-      -l, --license         show license
-      -r, --reference       creates an updated reference.rst in the doc directory
-      -v, --version         show version
+  -d, --doc             creates template files in the doc directory
+  -h, --help            show this help message
+  -l, --license         show license
+  -r, --reference       creates an updated reference.rst in the doc directory
+  -v, --version         show version
 
 No arguments creates setup files.
 easysetup should always be run from the application setup directory.
@@ -144,6 +152,7 @@ easysetup should always be run from the application setup directory.
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">easysetup</a><ul>
+<li><a class="reference internal" href="#to-do">To do</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#usage">Usage</a></li>
 <li><a class="reference internal" href="#options">Options</a></li>

@@ -1,3 +1,9 @@
+0.0.2 2015-04-20 ::
+
+    Remove rst2pdf module due to Py3 incompatibility.
+	Add To do list to README.rst.
+
+
 0.0.1 2015-04-19 ::
 
     Create build.cmd to build source, egg, wheel, win, py2exe, cxf (still not working), doc and run tests.
