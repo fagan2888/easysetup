@@ -29,7 +29,7 @@ import datetime as dt
 
 
 APP_NAME = 'easysetup'
-APP_VERSION = '0.0.3'
+APP_VERSION = '0.0.4'
 LICENSE = 'GNU General Public License v2 or later (GPLv2+)'
 URL = 'https://github.com/jcrmatos/easysetup'
 AUTHOR = 'Joao Carlos Roseta Matos'

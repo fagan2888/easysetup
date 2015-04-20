@@ -168,7 +168,7 @@ def update_doc():
 
 
 def create_redir2RTD_zip():
-    """Create pythonhosted.org/redir2RTD.zip."""
+    """Create zip of index.html that redirects pythonhosted to RTD."""
     filename = 'pythonhosted.org/index.html'
     with zip.ZipFile('pythonhosted.org/redir2RTD.zip', 'w') as archive:
         archive.write(filename, filename.split('/')[-1])

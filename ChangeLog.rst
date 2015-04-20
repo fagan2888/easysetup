@@ -1,6 +1,12 @@
+0.0.4 2015-04-20 ::
+
+    Update README.rst.
+	Updates usage section in README.rst based on usage.txt (which resides inside your application directory).
+
+
 0.0.3 2015-04-20 ::
 
-    Updated README.rst.
+    Update README.rst.
 
 
 0.0.2 2015-04-20 ::

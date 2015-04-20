@@ -129,5 +129,32 @@ def create_doc_zip():
                     archive.write(pathname, filename)
 
 
+def upd_usage_in_readme():
+    """Update usage in README.rst."""
+    with open(appinfo.APP_NAME + '/usage.txt') as file_:
+        usage_text = file_.read()
+
+    with open('README.rst') as file_:
+        text = file_.readlines()
+
+    new_text = ''
+    usage_section = False
+    for line in text:
+        if 'usage: ' in line:  # usage section start
+            usage_section = True
+            new_text += usage_text + '\n'
+        elif usage_section and 'Resources' not in line:
+            # bypass old usage section
+            continue
+        elif usage_section and 'Resources' in line:  # usage section end
+            usage_section = False
+            new_text += line
+        else:
+            new_text += line
+
+    with open('README.rst', 'w') as file_:
+        file_.writelines(new_text)
+
+
 if __name__ == '__main__':
     eval(sys.argv[1])

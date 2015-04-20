@@ -1,23 +1,24 @@
 easysetup
 =========
 
-*easysetup* helps creating a package distribution setup, while running tests creating HTML and PDF documentation, in Windows.
+*easysetup* helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, in Windows.
 
 **Features:**
 
-* Easy to use, just run easysetup from your application setup directory. It can be empty.
-* It allows creating source, egg, wheel, win and py2exe dists.
+* Easy to use, just run easysetup from your application setup directory (which may or may not be empty when easysetup is called).
+* Allows creating source, egg, wheel, win and py2exe dists.
 * All setup configuration is in one file (appinfo.py).
-* It runs tests and creates HTML and PDF documentation (if you have them, of course).
-* It creates templates for Travis, Shippable and tox.
-* It creates a template for development requirements.
-* It creates an empty template for installation requirements.
-* It creates a template for git VCS exceptions.
-* It creates a template for files to be included in the setup.
-* It creates a template for a README file.
-* It creates a template for wheel setup and Sphinx documentation upload.
-* It can create template files in the doc directory (assumes use of Sphinx 1.3.1+ and that the sphinx-quickstart command was already executed).
-* It can create an updated reference.rst in the doc directory (assumes previous item with the autodoc extension).
+* Runs tests and creates HTML and PDF documentation (if you have them, of course).
+* Creates templates for Travis, Shippable and tox.
+* Creates a template for development requirements.
+* Creates an empty template for installation requirements.
+* Creates a template for git VCS exceptions.
+* Creates a template for files to be included in the setup.
+* Creates a template for a README file.
+* Creates a template for wheel setup and Sphinx documentation upload.
+* Can create template files in the doc directory (assumes use of Sphinx 1.3.1+ and that the sphinx-quickstart command was already executed).
+* Can create an updated reference.rst in the doc directory (assumes previous item with the autodoc extension).
+* Updates usage section in README.rst based on usage.txt (which resides inside your application directory).
 
 After running easysetup, you can find a build.cmd in the current directory that should be run to build your application (check the comments inside the file for usage).
 
@@ -26,7 +27,6 @@ When running easysetup without options, if there are any files on the current di
 To do
 -----
 
-* Sync README.rst and usage.txt.
 * Add appveyor templates.
 * py2exe in Py3.
 * CXF in Py2 and Py3.

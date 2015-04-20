@@ -83,6 +83,8 @@ if "%PROJ_TYPE%"=="application" copy /y appinfo.py %PROJECT% > nul
 copy /y LICENSE.rst %PROJECT%\LICENSE.txt > nul
 copy /y AUTHORS.rst %PROJECT%\AUTHORS.txt > nul
 copy /y ChangeLog.rst %PROJECT%\ChangeLog.txt > nul
+
+python setup_utils.py upd_usage_in_readme()
 copy /y README.rst %PROJECT%\README.txt > nul
 
 if "%1"=="doc" goto :DOC
