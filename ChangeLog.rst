@@ -1,3 +1,8 @@
+0.0.3 2015-04-20 ::
+
+    Updated README.rst.
+
+
 0.0.2 2015-04-20 ::
 
     Remove rst2pdf module due to Py3 incompatibility.
