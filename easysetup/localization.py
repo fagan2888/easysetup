@@ -24,6 +24,9 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+#import builtins  # Python 3 compatibility
+#import future  # Python 3 compatibility
+#import io  # Python 3 compatibility
 import locale
 
 
@@ -43,10 +46,10 @@ if LANG == 'PT':  # Portuguese
     Q_APP_AUTHOR = 'Nome do autor? '
     Q_APP_EMAIL = 'E-mail? '
     Q_APP_KEYWORDS = 'Palavras-chave? '
-    Q_APP_LICENSE = 'Licença? [GPLv2+] '
+    Q_APP_LICENSE = 'Licença? '
     Q_APP_NAME = 'Nome da aplicação? '
     Q_APP_URL = 'URL? '
-    Q_APP_VERSION = 'Versão? [0.0.1] '
+    Q_APP_VERSION = 'Versão? '
     REMINDERS = """
 *** ATENÇÃO - A FAZER ***
 1. Editar appinfo.py para atualizar as categorias do PyPI.
@@ -80,10 +83,10 @@ else:  # English
     Q_APP_AUTHOR = 'Author name? '
     Q_APP_EMAIL = 'E-mail? '
     Q_APP_KEYWORDS = 'Keywords? '
-    Q_APP_LICENSE = 'License? [GPLv2+] '
+    Q_APP_LICENSE = 'License? '
     Q_APP_NAME = 'Application name? '
-    Q_APP_URL = 'URL?'
-    Q_APP_VERSION = 'Version? [0.0.1] '
+    Q_APP_URL = 'URL? '
+    Q_APP_VERSION = 'Version? '
     REMINDERS = """
 *** ATTENTION - TODO ***
 1. Edit appinfo.py to update PyPI classifiers.

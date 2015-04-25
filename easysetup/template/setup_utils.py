@@ -24,12 +24,18 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+#import builtins  # Python 3 compatibility
+#import future  # Python 3 compatibility
+import io  # Python 3 compatibility
 import os
 import sys
 import time
 import zipfile as zip
 
 import appinfo
+
+
+SYS_ENC = sys.getfilesystemencoding()
 
 
 def sleep(seconds=5):
@@ -57,7 +63,7 @@ def app_ver():
 def app_type():
     """Write application type (application or module) to text file."""
     with open('app_type.txt', 'w') as file_:
-        file_.write(appinfo.APP_TYPE)
+            file_.write(appinfo.APP_TYPE)
 
 
 def py_ver():
@@ -69,51 +75,46 @@ def py_ver():
 
 def remove_copyright():
     """Remove Copyright from README.rst."""
-    with open('../README.rst') as file_:
+    with io.open('README.rst', encoding=SYS_ENC) as file_:
         text = file_.readlines()
 
     new_text = ''
-
     for line in text:
         if 'Copyright ' in line:
             pass
         else:
             new_text += line
 
-    with open('../README.rst', 'w') as file_:
+    with io.open('README.rst', 'w', encoding=SYS_ENC) as file_:
         file_.writelines(new_text)
 
 
 def prep_rst2pdf():
     """Remove parts of rST to create a better pdf."""
-    with open('index.ori') as file_:
+    with io.open('index.ori', encoding=SYS_ENC) as file_:
         text = file_.readlines()
 
     new_text = ''
-
     for line in text:
-        if 'Contents:' in line:
-            pass
-        elif 'Indices and tables' in line:
+        if 'Indices and tables' in line:
             break
         else:
             new_text += line
 
-    with open('index.rst', 'w') as file_:
+    with io.open('index.rst', 'w', encoding=SYS_ENC) as file_:
         file_.writelines(new_text)
 
-    with open('../README.rst') as file_:
+    with io.open('../README.rst', encoding=SYS_ENC) as file_:
         text = file_.readlines()
 
     new_text = ''
-
     for line in text:
         if '.. image:: ' in line or '    :target: ' in line:
             pass
         else:
             new_text += line
 
-    with open('../README.rst', 'w') as file_:
+    with io.open('../README.rst', 'w', encoding=SYS_ENC) as file_:
         file_.writelines(new_text)
 
 
@@ -131,29 +132,61 @@ def create_doc_zip():
 
 def upd_usage_in_readme():
     """Update usage in README.rst."""
-    with open(appinfo.APP_NAME + '/usage.txt') as file_:
-        usage_text = file_.read()
+    if os.path.isfile(appinfo.APP_NAME + '/usage.txt'):
+        with io.open(appinfo.APP_NAME + '/usage.txt', encoding=SYS_ENC) as file_:
+            usage_text = file_.read()
 
-    with open('README.rst') as file_:
-        text = file_.readlines()
+        with io.open('README.rst', encoding=SYS_ENC) as file_:
+            text = file_.readlines()
 
-    new_text = ''
-    usage_section = False
-    for line in text:
-        if 'usage: ' in line:  # usage section start
-            usage_section = True
-            new_text += usage_text + '\n'
-        elif usage_section and 'Resources' not in line:
-            # bypass old usage section
-            continue
-        elif usage_section and 'Resources' in line:  # usage section end
-            usage_section = False
-            new_text += line
-        else:
-            new_text += line
+        new_text = ''
+        usage_section = False
+        for line in text:
+            if 'usage: ' in line:  # usage section start
+                usage_section = True
+                new_text += usage_text + '\n'
+            elif usage_section and 'Resources' not in line:
+                # bypass old usage section
+                continue
+            elif usage_section and 'Resources' in line:  # usage section end
+                usage_section = False
+                new_text += line
+            else:
+                new_text += line
 
-    with open('README.rst', 'w') as file_:
-        file_.writelines(new_text)
+        with io.open('README.rst', 'w', encoding=SYS_ENC) as file_:
+            file_.writelines(new_text)
+
+
+def change_sphinx_theme():
+    """"Change Sphinx theme according to Sphinx version."""
+    try:
+        import sphinx
+        sphinx_ver_str = sphinx.__version__
+        sphinx_ver = int(sphinx_ver_str.replace('.', ''))
+
+        with io.open('doc/conf.py', encoding=SYS_ENC) as file_:
+            text = file_.readlines()
+
+        new_text = ''
+        changed = False
+        for line in text:
+            if "html_theme = 'default'" in line and sphinx_ver >= 131:
+                new_text += "html_theme = 'alabaster'\n"
+                changed = True
+            elif "html_theme = 'alabaster'" in line and sphinx_ver < 131:
+                new_text += "html_theme = 'default'\n"
+                changed = True
+            elif 'html_theme = ' in line:
+                break
+            else:
+                new_text += line
+
+        if changed:
+            with io.open('doc/conf.py', 'w', encoding=SYS_ENC) as file_:
+                file_.write(new_text)
+    except ImportError as error:
+        pass
 
 
 if __name__ == '__main__':

@@ -1,5 +1,4 @@
 @echo off
-cls
 
 rem Copyright 2009-2015 Joao Carlos Roseta Matos
 rem
@@ -16,26 +15,35 @@ rem
 rem You should have received a copy of the GNU General Public License
 rem along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-rem Usage:
-rem
-rem build - builds sdist and bdist_wheel or just sdist if app type is module
-rem build src - builds sdist
-rem build whl - builds bdist_wheel
-rem build egg - builds bdist_egg
-rem build win - builds bdist_wininst
-rem build py2exe - builds windows exe on Py2 only for the moment
-rem build cxf - not working for the moment
-rem build pypi - uploads dists to PyPI
-rem build pypitest - uploads dists to test
-rem build test - run tests
-rem build clean - clears dirs and files
-rem build doc - builds doc
-rem
-rem Requires:
-rem Python, Sphinx, Miktex, pytest, pytest-cov, twine, py2exe, cxf.
-
 set OLDPATH=%PATH%
 
+if "%1"=="-h" goto :HELP
+if "%1"=="help" goto :HELP
+goto :NOHELP
+
+:HELP
+echo Usage:
+echo.
+echo build -h, help   show this help message
+echo build            builds sdist/bdist_wheel or just sdist if APP_TYPE = 'module'
+echo build clean      clears dirs and files
+echo build cxf        not working for the moment
+echo build doc        builds doc
+echo build egg        builds bdist_egg
+echo build py2exe     builds windows exe on Py2 only, for the moment
+echo build pypi       uploads dists to PyPI
+echo build pypitest   uploads dists to test
+echo build src        builds sdist
+echo build test       run tests
+echo build whl        builds bdist_wheel
+echo build win        builds bdist_wininst
+echo.
+echo See requirements-dev.txt for build requirements.
+echo.
+goto :EXIT
+
+:NOHELP
+cls
 python setup_utils.py app_name()
 if not exist app_name.txt goto :EXIT
 for /f "delims=" %%f in (app_name.txt) do set PROJECT=%%f
@@ -51,7 +59,6 @@ if exist app_ver.txt del app_ver.txt
 if exist app_name.txt del app_name.txt
 if exist app_type.txt del app_type.txt
 if exist py_ver.txt del py_ver.txt
-if exist *.pyc del *.pyc
 if exist build rd /s /q build
 if exist dist rd /s /q dist
 if exist test\*.pyc del test\*.pyc
@@ -61,6 +68,7 @@ if not exist app_ver.txt goto :EXIT
 for /f "delims=" %%f in (app_ver.txt) do set APP_VER=%%f
 del app_ver.txt
 
+if exist *.pyc del *.pyc
 if exist %PROJECT%\*.pyc del %PROJECT%\*.pyc
 if exist %PROJECT%.egg-info rd /s /q %PROJECT%.egg-info
 if exist %PROJECT%-%APP_VER% rd /s /q %PROJECT%-%APP_VER%
@@ -122,12 +130,13 @@ echo *** Sphinx
 echo.
 set SPHINXOPTS=-E
 set PATH=d:\miktex\miktex\bin;%PATH%
-
+python setup_utils.py change_sphinx_theme()
 copy /y README.rst README.rst.bak > nul
+python setup_utils.py remove_copyright()
+
 cd doc
 cmd /c make clean
 
-python ..\setup_utils.py remove_copyright()
 cmd /c make html
 if not exist ..\%PROJECT%\doc md ..\%PROJECT%\doc
 xcopy /y /e _build\html\*.* ..\%PROJECT%\doc\ > nul

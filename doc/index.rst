@@ -1,15 +1,12 @@
-.. include:: ../README.rst
-
-**Contents:**
-
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
+   readme
    reference
-   license
    changelog
-   codeauthors
-
+   license
+   authors
+   
 Indices and tables
 ==================
 

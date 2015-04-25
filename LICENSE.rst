@@ -1,6 +1,3 @@
-License
-=======
-
 ::
 
         easysetup - helps creating a package distribution setup for Windows users.

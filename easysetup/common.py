@@ -24,10 +24,13 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+#import builtins  # Python 3 compatibility
+#import future  # Python 3 compatibility
 import imp
 import io  # Python 3 compatibility
 import os
 import sys
+import time
 
 import appinfo
 import localization as lcl
@@ -35,6 +38,7 @@ import localization as lcl
 
 APP_INFO_FILENAME = 'appinfo.py'
 PY = int(sys.version[0])
+SYS_ENC = sys.getfilesystemencoding()
 
 # set correct path to all data files
 DATA_PATH = ''
@@ -43,8 +47,7 @@ if (hasattr(sys, 'frozen') or  # new py2exe
      hasattr(sys, 'importers') or  # old py2exe
      imp.is_frozen('__main__')):  # tools/freeze
     if PY < 3:
-        DATA_PATH = os.path.dirname(unicode(sys.executable,  # check if works
-                                            sys.getfilesystemencoding()))
+        DATA_PATH = os.path.dirname(unicode(sys.executable, SYS_ENC))  # Check
     else:
         DATA_PATH = os.path.dirname(sys.executable)
     DATA_PATH += os.sep
@@ -65,8 +68,7 @@ else:
 def usage():
     """Returns usage text, read from a file."""
     if os.path.isfile(USAGE_FILE):  # if file exists
-        with io.open(USAGE_FILE,
-                     encoding=sys.getfilesystemencoding()) as file_:
+        with io.open(USAGE_FILE, encoding=SYS_ENC) as file_:
             text = file_.read()
     else:
         print(lcl.FILE_NOT_FOUND, USAGE_FILE)
@@ -79,8 +81,7 @@ def banner():
     banner_txt = ('\n' + appinfo.APP_NAME + lcl.VERSION_WITH_SPACES +
                   appinfo.APP_VERSION +  ', ' + appinfo.COPYRIGHT + '\n')
     if os.path.isfile(BANNER_FILE):  # if file exists
-        with io.open(BANNER_FILE,
-                     encoding=sys.getfilesystemencoding()) as file_:
+        with io.open(BANNER_FILE, encoding=SYS_ENC) as file_:
             banner_txt += file_.read()
     else:
         print(lcl.FILE_NOT_FOUND, BANNER_FILE)
@@ -95,13 +96,17 @@ def version():
 def license_():
     """Returns license text, read from a file."""
     if os.path.isfile(LICENSE_FILE):  # if file exists
-        with io.open(LICENSE_FILE,
-                     encoding=sys.getfilesystemencoding()) as file_:
+        with io.open(LICENSE_FILE, encoding=SYS_ENC) as file_:
             text = file_.read()
     else:
         print(lcl.FILE_NOT_FOUND, LICENSE_FILE)
         text = ''
     return text
+
+
+def sleep(seconds=5):
+    """Pause for specified time."""
+    time.sleep(seconds)
 
 
 if __name__ == '__main__':

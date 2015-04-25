@@ -5,7 +5,7 @@
       -h, --help            show this help message
       -l, --license         show license
       -r, --reference       creates an updated reference.rst in the doc directory
-      -v, --version         show version
+      -V, --version         show version
 
     No arguments creates setup files.
     easysetup should always be run from the application setup directory.

@@ -25,16 +25,19 @@ from __future__ import print_function
 # sometimes py2exe requires the following import to be commented
 #from __future__ import unicode_literals
 
+#import builtins  # Python 3 compatibility
 import datetime as dt
+#import future  # Python 3 compatibility
+#import io  # Python 3 compatibility
 
 
 APP_NAME = 'APPLICATION_NAME'
 APP_VERSION = 'APPLICATION_VERSION'
-LICENSE = 'APPLICATION_LICENSE'
-AUTHOR = 'APPLICATION_AUTHOR'
-AUTHOR_EMAIL = 'APPLICATION_EMAIL'
-URL = 'APPLICATION_URL'
-KEYWORDS = 'APPLICATION_KEYWORDS'
+APP_LICENSE = 'APPLICATION_LICENSE'
+APP_AUTHOR = 'APPLICATION_AUTHOR'
+APP_EMAIL = 'APPLICATION_EMAIL'
+APP_URL = 'APPLICATION_URL'
+APP_KEYWORDS = 'APPLICATION_KEYWORDS'
 
 # check all below
 CLASSIFIERS = ['Development Status :: 4 - Beta',
@@ -42,7 +45,7 @@ CLASSIFIERS = ['Development Status :: 4 - Beta',
                'Environment :: Win32 (MS Windows)',
                'Intended Audience :: Developers',
                'Natural Language :: English',
-               'License :: OSI Approved ::' + ' ' + LICENSE,
+               'License :: OSI Approved ::' + ' ' + APP_LICENSE,
                'Operating System :: OS Independent',
                'Programming Language :: Python',
                'Programming Language :: Python :: 2.7',
@@ -50,7 +53,7 @@ CLASSIFIERS = ['Development Status :: 4 - Beta',
                'Topic :: Other/Nonlisted Topic',
               ]
 
-COPYRIGHT = 'Copyright 2009-' + str(dt.date.today().year) + ' '  + AUTHOR
+COPYRIGHT = 'Copyright 2009-' + str(dt.date.today().year) + ' '  + APP_AUTHOR
 
 APP_TYPE = 'application'  # it can be application or module
 

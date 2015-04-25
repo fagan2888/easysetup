@@ -1,29 +1,39 @@
-APPLICATION_NAME
+APPLICATION_NAME 
 ================
 
-*APPLICATION_NAME* is a ...
+Description, features and To do
+-------------------------------
+
+**Description**
+
+*APPLICATION_NAME* helps ...
 
 **Features:**
 
-* Easy to use.
-* Some other features.
+* Easy to use...
+* ...
 
-Installation
-------------
+**To do**
+
+* Add ...
+* ...
+
+Installation, usage and options
+-------------------------------
+
+**Installation**
 
 .. code:: bash
 
     $ pip install APPLICATION_NAME
 
-Usage
------
+**Usage**
 
 .. code:: bash
 
     $ APPLICATION_NAME
 
-Options
--------
+**Options**
 
 .. code:: bash
 
@@ -31,19 +41,20 @@ Options
     usage: APPLICATION_NAME [-option]
 
     optional arguments:
-	  -h, --help            show this help message
-	  -l, --license         show license
-	  -v, --version         show version
+      -h, --help            show this help message
+      -l, --license         show license
+      -V, --version         show version
 
     No arguments ...
 
-Resources
----------
+Resources and contributing
+--------------------------
+
+**Resources**
 
 * `Repository <APPLICATION_URL>`_
 
-Contributing
-------------
+**Contributing**
 
 1. Fork the `repository`_ on GitHub.
 2. Make a branch of master and commit your changes to it.

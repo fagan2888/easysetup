@@ -1,6 +1,3 @@
-License
-=======
-
 ::
 
         APPLICATION_NAME.

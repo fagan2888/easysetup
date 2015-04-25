@@ -27,11 +27,12 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-from builtins import input
 
-import codecs
+import builtins  # Python 3 compatibility
 import datetime as dt
+#import future  # Python 3 compatibility
 import glob
+import io  # Python 3 compatibility
 import os
 import shutil as shu
 import sys
@@ -43,9 +44,15 @@ import common
 import localization as lcl
 
 
+DEFAULT_AUTHOR = 'CHANGE_ME'
+DEFAULT_EMAIL = 'CHANGE_ME'
+DEFAULT_URL = 'CHANGE_ME'  # eg. https://github.com/<username>/
+
 DEFAULT_VERSION = '0.0.1'
 DEFAULT_LICENSE = 'GNU General Public License v2 or later (GPLv2+)'
+
 BAK_DIR = '_bak'
+
 
 app_name = ''
 app_version = ''
@@ -59,8 +66,9 @@ cur_date = str(dt.date.today())
 
 def update_file(filename):
     """Update file with user input."""
-    with codecs.open(filename, encoding=sys.getfilesystemencoding()) as file_:
+    with io.open(filename, encoding=common.SYS_ENC) as file_:
         text = file_.readlines()
+
     new_text = ''
     changed = False
     for line in text:
@@ -92,26 +100,37 @@ def update_file(filename):
         if 'README.rst' in filename and '================' in line:
             line = line.replace('================', '=' * len(app_name))
             changed = True
-        if 'reference.rst' in filename and '----------------' in line:
-            line = line.replace('----------------', '-' * len(app_name))
+        if 'reference.rst' in filename and '::::::::::::::::' in line:
+            line = line.replace('::::::::::::::::', ':' * len(app_name))
             changed = True
         new_text += line
     if changed:
-        with codecs.open(filename, 'w',
-                         encoding=sys.getfilesystemencoding()) as file_:
+        with io.open(filename, 'w', encoding=common.SYS_ENC) as file_:
             file_.writelines(new_text)
 
 
-def get_app_name():
-    """Read application name from appinfo.py."""
-    with codecs.open(common.APP_INFO_FILENAME,
-                     encoding=sys.getfilesystemencoding()) as file_:
+def get_app_info():
+    """Read application info from appinfo.py."""
+    global app_name, app_version, app_license, app_author, app_email, \
+           app_url, app_keywords
+
+    with io.open(common.APP_INFO_FILENAME, encoding=common.SYS_ENC) as file_:
         text = file_.readlines()
-    app_name = ''
     for line in text:
-        if 'APP_NAME' in line:
+        if 'APP_NAME = ' in line:
             app_name = line.split("'")[1]
-    return app_name
+        if 'APP_VERSION = ' in line:
+            app_version = line.split("'")[1]
+        if 'APP_LICENSE = ' in line:
+            app_license = line.split("'")[1]
+        if 'APP_AUTHOR = ' in line:
+            app_author = line.split("'")[1]
+        if 'APP_EMAIL = ' in line:
+            app_email = line.split("'")[1]
+        if 'APP_URL = ' in line:
+            app_url = line.split("'")[1]
+        if 'APP_KEYWORDS = ' in line:
+            app_keywords = line.split("'")[1]
 
 
 def update_ref():
@@ -119,7 +138,8 @@ def update_ref():
     filenames = glob.glob(app_name + '/*.py')
     # remove __init__.py
     filenames = [filename for filename in filenames
-                 if '__init__.py' not in filename]
+                 if '__init__.py' not in filename and
+                 'appinfo.py' not in filename]
 
     if filenames:
         # remove paths
@@ -127,18 +147,16 @@ def update_ref():
         # remove extensions
         filenames = [filename.split('.')[0] for filename in filenames]
 
-        text = 'Reference' + os.linesep + '=========' + os.linesep
+        text = 'Reference\n---------\n'
 
         for filename in filenames:
-            text +=  os.linesep
-            text +=  filename + os.linesep + '-' * len(filename) + \
-                     os.linesep + os.linesep
-            text +=  '.. automodule:: ' + app_name + '.' + filename + \
-                     os.linesep
-            text += '    :members:' + os.linesep
+            text +=  '\n'
+            text +=  filename + '\n' + ':' * len(filename) + '\n\n'
+            text +=  '.. automodule:: ' + filename + '\n'
+            text += '    :members:\n'
 
-        with codecs.open('doc/reference.rst', 'w',
-                         encoding=sys.getfilesystemencoding()) as file_:
+        with io.open('doc/reference.rst', 'w',
+                     encoding=common.SYS_ENC) as file_:
             file_.writelines(text)
 
 
@@ -180,23 +198,32 @@ def create_setup():
            app_url, app_keywords
 
     while not app_name:
-        app_name = input(lcl.Q_APP_NAME)
+        app_name = builtins.input(lcl.Q_APP_NAME)
 
-    app_version = input(lcl.Q_APP_VERSION)
+    app_version = builtins.input(lcl.Q_APP_VERSION + '[' + DEFAULT_VERSION +
+                                 '] ')
     if not app_version:
         app_version = DEFAULT_VERSION
 
-    app_license = input(lcl.Q_APP_LICENSE)
+    app_license = builtins.input(lcl.Q_APP_LICENSE + '[' + DEFAULT_LICENSE +
+                                 '] ')
     if not app_license:
         app_license = DEFAULT_LICENSE
 
-    while not app_author:
-        app_author = input(lcl.Q_APP_AUTHOR)
+    app_author = builtins.input(lcl.Q_APP_AUTHOR + '[' + DEFAULT_AUTHOR + '] ')
+    if not app_author:
+        app_author = DEFAULT_AUTHOR
 
-    app_email = input(lcl.Q_APP_EMAIL)
-    app_url = input(lcl.Q_APP_URL)
+    app_email = builtins.input(lcl.Q_APP_EMAIL + '[' + DEFAULT_EMAIL + '] ')
+    if not app_email:
+        app_email = DEFAULT_EMAIL
 
-    app_keywords = input(lcl.Q_APP_KEYWORDS)
+    app_url = builtins.input(lcl.Q_APP_URL + '[' + DEFAULT_URL + app_name +
+                             '] ')
+    if not app_url:
+        app_url = DEFAULT_URL + app_name
+
+    app_keywords = builtins.input(lcl.Q_APP_KEYWORDS)
     if not app_keywords:
         app_keywords = app_name
 
@@ -223,6 +250,8 @@ def create_setup():
             shu.copyfile(filename, filename.split(os.sep)[-1])
         else:
             shu.copytree(filename, filename.split(os.sep)[-1])
+
+    common.sleep(2)
 
     os.rename('APPLICATION_NAME', app_name)  # rename application dir
 
@@ -264,26 +293,24 @@ def create_setup():
 
 def main():
     """Process command line args."""
-    global app_name
-
     clrm.init()
 
     print(common.banner())
 
     args = sys.argv[1:]
     if args:
-        arg0 = args[0].lower()
+        arg0 = args[0]
         if arg0 in ['-d', '--doc']:
-            app_name = get_app_name()
+            get_app_info()
             update_doc()
         elif arg0 in ['-l', '--license']:
             print(common.license_())
         elif arg0 in ['-h', '--help']:
             print(common.usage())
         elif arg0 in ['-r', '--reference']:
-            app_name = get_app_name()
+            get_app_info()
             update_ref()
-        elif arg0 in ['-v', '--version']:
+        elif arg0 in ['-V', '--version']:
             print(lcl.VERSION, common.version())
     else:
         create_setup()
@@ -294,7 +321,7 @@ if __name__ == '__main__':
     # doctest.testmod(verbose=True)
     sys.exit(main())
 
-# TODO: sync README.rst and usage.txt
+
 # TODO: add appveyor templates
 # TODO: py2exe in Py3
 # TODO: CXF in Py2 and Py3

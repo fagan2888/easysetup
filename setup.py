@@ -24,6 +24,9 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+#import builtins  # Python 3 compatibility
+#import future  # Python 3 compatibility
+import io  # Python 3 compatibility
 import os
 import sys
 
@@ -32,9 +35,11 @@ import setuptools
 import appinfo
 
 
+SYS_ENC = sys.getfilesystemencoding()
+
 DESC = LONG_DESC = ''
 if os.path.isfile(appinfo.README_FILE):
-    with open(appinfo.README_FILE) as file_:
+    with io.open(appinfo.README_FILE, encoding=SYS_ENC) as file_:
         LONG_DESC = file_.read()
         DESC = LONG_DESC.split('\n')[3]
 
@@ -42,7 +47,7 @@ if os.path.isfile(appinfo.README_FILE):
 
 REQUIREMENTS = ''
 if os.path.isfile(appinfo.REQUIREMENTS_FILE):
-    with open(appinfo.REQUIREMENTS_FILE) as file_:
+    with io.open(appinfo.REQUIREMENTS_FILE, encoding=SYS_ENC) as file_:
         REQUIREMENTS = file_.read().splitlines()
 
 ENTRY_POINTS = {'console_scripts': [appinfo.APP_NAME + '=' + \
@@ -56,13 +61,13 @@ setuptools.setup(name=appinfo.APP_NAME,
                  version=appinfo.APP_VERSION,
                  description=DESC,
                  long_description=LONG_DESC,
-                 license=appinfo.LICENSE,
-                 url=appinfo.URL,
-                 author=appinfo.AUTHOR,
-                 author_email=appinfo.AUTHOR_EMAIL,
+                 license=appinfo.APP_LICENSE,
+                 url=appinfo.APP_URL,
+                 author=appinfo.APP_AUTHOR,
+                 author_email=appinfo.APP_EMAIL,
 
                  classifiers=appinfo.CLASSIFIERS,
-                 keywords=appinfo.KEYWORDS,
+                 keywords=appinfo.APP_KEYWORDS,
 
                  packages=setuptools.find_packages(),
                  #packages=setuptools.find_packages(exclude=['docs',
