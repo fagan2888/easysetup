@@ -56,8 +56,20 @@ if os.path.isfile(appinfo.REQUIREMENTS_FILE):
 
 PATH = appinfo.APP_NAME + '/'
 SCRIPT = PATH + appinfo.APP_NAME + '.py'
-DATA_FILES_PY2EXE = [('', glob.glob(PATH + '*.txt'))]
 
+if os.path.isdir(appinfo.APP_NAME + '/doc'):
+    DATA_FILES_PY2EXE = [('', glob.glob(PATH + '*.txt')),
+                         ('doc', glob.glob(PATH + 'doc/.*') +
+                                 glob.glob(PATH + 'doc/*.html') +
+                                 glob.glob(PATH + 'doc/*.pdf') +
+                                 glob.glob(PATH + 'doc/*.inv') +
+                                 glob.glob(PATH + 'doc/*.js')),
+                         ('doc/_modules', glob.glob(PATH + 'doc/_modules/*.*')),
+                         ('doc/_sources', glob.glob(PATH + 'doc/_sources/*.*')),
+                         ('doc/_static', glob.glob(PATH + 'doc/_static/*.*'))]
+else:
+    DATA_FILES_PY2EXE = [('', glob.glob(PATH + '*.txt'))]
+        
 OPTIONS = {'py2exe': {'compressed': True,
                       'ascii': False,
                       #'packages': ['colorama'],

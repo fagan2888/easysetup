@@ -1,6 +1,8 @@
 easysetup
 =========
 
+*easysetup* helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, in Windows.
+
 Description, features and To do
 -------------------------------
 

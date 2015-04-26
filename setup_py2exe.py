@@ -56,7 +56,47 @@ if os.path.isfile(appinfo.REQUIREMENTS_FILE):
 
 PATH = appinfo.APP_NAME + '/'
 SCRIPT = PATH + appinfo.APP_NAME + '.py'
-DATA_FILES_PY2EXE = [('', glob.glob(PATH + '*.txt'))]
+
+if os.path.isdir(appinfo.APP_NAME + '/doc'):
+    DATA_FILES_PY2EXE = [('', glob.glob(PATH + '*.txt')),
+                         ('doc', glob.glob(PATH + 'doc/.*') +
+                                 glob.glob(PATH + 'doc/*.html') +
+                                 glob.glob(PATH + 'doc/*.pdf') +
+                                 glob.glob(PATH + 'doc/*.inv') +
+                                 glob.glob(PATH + 'doc/*.js')),
+                         ('doc/_modules', glob.glob(PATH + 'doc/_modules/*.*')),
+                         ('doc/_sources', glob.glob(PATH + 'doc/_sources/*.*')),
+                         ('doc/_static', glob.glob(PATH + 'doc/_static/*.*')),
+                         ('template', glob.glob(PATH + 'template/.*') +
+                                      glob.glob(PATH + 'template/*.yml') +
+                                      glob.glob(PATH + 'template/*.py') +
+                                      glob.glob(PATH + 'template/*.rst') +
+                                      glob.glob(PATH + 'template/*.cmd') +
+                                      glob.glob(PATH + 'template/*.in') +
+                                      glob.glob(PATH + 'template/*.txt') +
+                                      glob.glob(PATH + 'template/*.cfg') +
+                                      glob.glob(PATH + 'template/*.ini')),
+                         ('template/APPLICATION_NAME',
+                          glob.glob(PATH + 'template/APPLICATION_NAME/*.*')),
+                         ('template/doc', glob.glob(PATH + 'template/doc/*.*')),
+                         ('template/pythonhosted.org',
+                          glob.glob(PATH + 'template/pythonhosted.org/*.*'))]
+else:
+    DATA_FILES_PY2EXE = [('', glob.glob(PATH + '*.txt')),
+                         ('template', glob.glob(PATH + 'template/.*') +
+                                      glob.glob(PATH + 'template/*.yml') +
+                                      glob.glob(PATH + 'template/*.py') +
+                                      glob.glob(PATH + 'template/*.rst') +
+                                      glob.glob(PATH + 'template/*.cmd') +
+                                      glob.glob(PATH + 'template/*.in') +
+                                      glob.glob(PATH + 'template/*.txt') +
+                                      glob.glob(PATH + 'template/*.cfg') +
+                                      glob.glob(PATH + 'template/*.ini')),
+                         ('template/APPLICATION_NAME',
+                          glob.glob(PATH + 'template/APPLICATION_NAME/*.*')),
+                         ('template/doc', glob.glob(PATH + 'template/doc/*.*')),
+                         ('template/pythonhosted.org',
+                          glob.glob(PATH + 'template/pythonhosted.org/*.*'))]
 
 OPTIONS = {'py2exe': {'compressed': True,
                       'ascii': False,

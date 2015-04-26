@@ -288,6 +288,10 @@ echo *** PY2EXE
 echo.
 python setup_py2exe.py py2exe
 if exist dist\__main__.exe ren dist\__main__.exe %PROJECT%.exe
+
+echo.
+echo *** Check if you need to add any files or directories to DATA_FILES_PY2EXE in setup_py2exe.py.
+echo.
 goto :EXIT
 
 :PYPI
@@ -296,6 +300,7 @@ echo *** PyPI: Register and upload
 echo.
 python setup.py register -r pypi
 twine upload dist/*
+if ERRORLEVEL==1 goto :EXIT
 rem *** old way ***
 rem if "%PROJ_TYPE%"=="module" python setup.py sdist upload -r pypi
 rem if "%PROJ_TYPE%"=="module" goto :EXIT

@@ -1,3 +1,11 @@
+0.0.8 2015-04-26 ::
+
+    Add files and dirs to .gitignore.
+	Correct setup_py2exe.py to include doc if exists.
+	Add warning to py2exe build.
+	Add ERRORLEVEL check when publishing dists to PyPI.
+
+	
 0.0.6 2015-04-26 ::
 
     Add dumb, msi and rpm options to build.cmd.
