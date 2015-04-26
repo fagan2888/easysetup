@@ -25,18 +25,21 @@ goto :NOHELP
 echo Usage:
 echo.
 echo build -h, help   show this help message
-echo build            builds sdist/bdist_wheel or just sdist if APP_TYPE = 'module'
+echo build            builds sdist/bdist_wheel or just sdist if APP_TYPE = 'module' inside appinfo.py
 echo build clean      clears dirs and files
-echo build cxf        not working for the moment
+echo build cxf        builds windows exe including Python runtime - not working for the moment
 echo build doc        builds doc
-echo build egg        builds bdist_egg
-echo build py2exe     builds windows exe on Py2 only, for the moment
-echo build pypi       uploads dists to PyPI
+echo build dumb       builds bdist_dumb (zip on Windows, tar/ztar/gztar/zip on GNU Linux in the future)
+echo build egg        builds bdist_egg (egg)
+echo build exe        builds bdist_wininst (exe) - requires Python to be installed on destination
+echo build msi        builds bdist_msi (msi) - requires Python to be installed on destination
+echo build py2exe     builds windows exe including Python runtime, only works on Py2 for the moment
+echo build pypi       uploads dists to PyPI (including documentation)
 echo build pypitest   uploads dists to test
-echo build src        builds sdist
+echo build rpm        builds bdist_rpm (rpm/srpm) - only works on GNU Linux (in the future)
+echo build src        builds sdist (zip on Windows, tar.gz on GNU Linux in the future)
 echo build test       run tests
-echo build whl        builds bdist_wheel
-echo build win        builds bdist_wininst
+echo build whl        builds bdist_wheel (whl)
 echo.
 echo See requirements-dev.txt for build requirements.
 echo.
@@ -76,6 +79,15 @@ if exist %PROJECT%\doc rd /s /q %PROJECT%\doc
 
 if "%1"=="clean" goto :EXIT
 
+python setup_utils.py upd_usage_in_readme()
+
+copy /y README.rst %PROJECT%\README.txt > nul
+copy /y LICENSE.rst %PROJECT%\LICENSE.txt > nul
+copy /y AUTHORS.rst %PROJECT%\AUTHORS.txt > nul
+copy /y ChangeLog.rst %PROJECT%\ChangeLog.txt > nul
+
+copy /y appinfo.py %PROJECT% > nul
+
 python setup_utils.py app_type()
 if not exist app_type.txt goto :EXIT
 for /f "delims=" %%f in (app_type.txt) do set PROJ_TYPE=%%f
@@ -85,15 +97,6 @@ python setup_utils.py py_ver()
 if not exist py_ver.txt goto :EXIT
 for /f "delims=" %%f in (py_ver.txt) do set PY_VER=%%f
 del py_ver.txt
-
-if "%PROJ_TYPE%"=="application" copy /y appinfo.py %PROJECT% > nul
-
-copy /y LICENSE.rst %PROJECT%\LICENSE.txt > nul
-copy /y AUTHORS.rst %PROJECT%\AUTHORS.txt > nul
-copy /y ChangeLog.rst %PROJECT%\ChangeLog.txt > nul
-
-python setup_utils.py upd_usage_in_readme()
-copy /y README.rst %PROJECT%\README.txt > nul
 
 if "%1"=="doc" goto :DOC
 
@@ -129,7 +132,7 @@ echo.
 echo *** Sphinx
 echo.
 set SPHINXOPTS=-E
-set PATH=d:\miktex\miktex\bin;%PATH%
+set PATH=c:\miktex\miktex\bin;%PATH%
 python setup_utils.py change_sphinx_theme()
 copy /y README.rst README.rst.bak > nul
 python setup_utils.py remove_copyright()
@@ -172,11 +175,14 @@ if "%1"=="doc" goto :EXIT
 pause
 cls
 
-if "%1"=="whl" goto :WHL
-if "%1"=="egg" goto :EGG
-if "%1"=="win" goto :WIN
 if "%1"=="cxf" goto :CXF
+if "%1"=="dumb" goto :DUMB
+if "%1"=="egg" goto :EGG
+if "%1"=="exe" goto :EXE
+if "%1"=="msi" goto :MSI
 if "%1"=="py2exe" goto :PY2EXE
+if "%1"=="rpm" goto :RPM
+if "%1"=="whl" goto :WHL
 
 :SRC
 python setup_utils.py sleep(5)
@@ -199,9 +205,7 @@ python setup.py bdist_wheel
 echo.
 echo *** End of bdist_wheel build. Check for errors.
 echo.
-if "%1"=="whl" goto :MSG
-if "%1"=="" goto :MSG
-pause
+goto :MSG
 
 :EGG
 echo.
@@ -211,10 +215,9 @@ python setup.py bdist_egg
 echo.
 echo *** End of bdist_egg build. Check for errors.
 echo.
-if "%1"=="egg" goto :MSG
-pause
+goto :MSG
 
-:WIN
+:EXE
 echo.
 echo *** bdist_wininst build
 echo.
@@ -222,6 +225,37 @@ python setup.py bdist_wininst
 echo.
 echo *** End of bdist_winist build. Check for errors.
 echo.
+goto :MSG
+
+:DUMB
+echo.
+echo *** bdist_dumb build
+echo.
+python setup.py bdist_dumb
+echo.
+echo *** End of bdist_dumb build. Check for errors.
+echo.
+goto :MSG
+
+:MSI
+echo.
+echo *** bdist_msi build
+echo.
+python setup.py bdist_msi
+echo.
+echo *** End of bdist_msi build. Check for errors.
+echo.
+goto :MSG
+
+:RPM
+echo.
+echo *** bdist_rpm build
+echo.
+python setup.py bdist_rpm
+echo.
+echo *** End of bdist_rpm build. Check for errors.
+echo.
+goto :MSG
 
 :MSG
 echo.

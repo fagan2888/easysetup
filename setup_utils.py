@@ -75,7 +75,7 @@ def update_copyright():
         for line in text:
             if ((not changed) and (appinfo.COPYRIGHT not in line) and
                  ('Copyright 2009-' in line)):
-                new_text += '# ' + appinfo.COPYRIGHT + os.linesep
+                new_text += '# ' + appinfo.COPYRIGHT + '\n'
                 changed = True
             else:
                 new_text += line
@@ -94,7 +94,7 @@ def update_copyright():
         for line in text:
             if ((not changed) and ("copyright = u'2009-" in line) and
                  (doc_copyright not in line)):
-                new_text += doc_copyright + os.linesep
+                new_text += doc_copyright + '\n'
                 changed = True
             else:
                 new_text += line
@@ -110,7 +110,7 @@ def update_copyright():
     for line in text:
         if ((not changed) and (appinfo.COPYRIGHT not in line) and
              ('Copyright ' + '2009-' in line)):
-            new_text += '        ' + appinfo.COPYRIGHT + os.linesep
+            new_text += '        ' + appinfo.COPYRIGHT + '\n'
             changed = True
         else:
             new_text += line

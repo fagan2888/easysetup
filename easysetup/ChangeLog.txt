@@ -1,3 +1,10 @@
+0.0.6 2015-04-26 ::
+
+    Add dumb, msi and rpm options to build.cmd.
+	Update README.rst.
+	Correct os.linesep to '\n' in update_copyright() (setup-utils.py).
+
+	
 0.0.5 2015-04-25 ::
 
     Improve Py3 compatibility.

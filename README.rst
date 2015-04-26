@@ -16,10 +16,13 @@ After running easysetup, you can find a build.cmd in the current directory that 
 
 **Features:**
 
-* Easy to use, just run easysetup from your application setup directory (which may or may not be empty when easysetup is called).
-* Allows creating source, egg, wheel, win and py2exe dists.
+* Easy to use, just run easysetup from your application setup directory (it backups everything in current directory to _bak directory when run without options).
+* Allows creating source, wheel, win (exe or msi), py2exe, egg, dumb (zip on windows, tar/ztar/gztar/zip on GNU Linux in the future) and rpm (on GNU Linux in the future) dists.
 * All setup configuration is in one file (appinfo.py).
 * Runs tests and creates HTML and PDF documentation (if you have them, of course).
+* Can publish to PyPI (including documentation if exists) and PyPI tests.
+
+* Creates index.html with redirection to RTD, to be used if preferred for hosting documentation.
 * Creates templates for Travis, Shippable and tox.
 * Creates a template for development requirements.
 * Creates a template for installation requirements.
@@ -29,15 +32,19 @@ After running easysetup, you can find a build.cmd in the current directory that 
 * Creates a template for wheel setup and Sphinx documentation upload.
 * Can create template files in the doc directory (assumes use of Sphinx and that the sphinx-quickstart command was already executed).
 * Can create an updated reference.rst in the doc directory (assumes previous item with the autodoc extension).
-* Updates usage section in README.rst based on usage.txt if it exists inside your application directory.
-* Backups everything in current directory to _bak directory when run without options.
+* Updates usage section in README.rst based on usage.txt, if it exists inside your application directory.
 
 **To do**
 
+* correct py2exe to include subdirs (doc and template).
 * Add appveyor templates.
+* Auto rebuild doc/reference.rst on each dist build.
+* Auto rebuild requirements.txt on each dist build.
+* Change easysetup from Windows only to universal (move build.cmd functionality to easysetup.py).
 * py2exe in Py3.
 * CXF in Py2 and Py3.
 * Checks and error messages.
+
 
 Installation, usage and options
 -------------------------------
