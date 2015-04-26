@@ -33,7 +33,7 @@ echo build dumb       builds bdist_dumb (zip on Windows, tar/ztar/gztar/zip on G
 echo build egg        builds bdist_egg (egg)
 echo build exe        builds bdist_wininst (exe) - requires Python to be installed on destination
 echo build msi        builds bdist_msi (msi) - requires Python to be installed on destination
-echo build py2exe     builds windows exe including Python runtime, only works on Py2 for the moment
+echo build py2exe     builds windows exe including Python runtime
 echo build pypi       uploads dists to PyPI (including documentation)
 echo build pypitest   uploads dists to test
 echo build rpm        builds bdist_rpm (rpm/srpm) - only works on GNU Linux (in the future)

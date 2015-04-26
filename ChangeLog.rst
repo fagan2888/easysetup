@@ -1,3 +1,12 @@
+0.0.9 2015-04-26 ::
+
+    Remove Sphinx upload section from setup.cfg.
+	Update README.rst.
+	Save answers (DEFAULT_AUTHOR, DEFAULT_EMAIL, DEFAULT_URL, DEFAULT_VERSION 
+	and DEFAULT_LICENSE) for future use in other applications.
+	py2exe build now works with Py3 (tested with Anaconda).
+
+	
 0.0.8 2015-04-26 ::
 
     Add files and dirs to .gitignore.

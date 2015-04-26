@@ -46,7 +46,7 @@ import localization as lcl
 
 DEFAULT_AUTHOR = 'CHANGE_ME'
 DEFAULT_EMAIL = 'CHANGE_ME'
-DEFAULT_URL = 'CHANGE_ME'  # eg. https://github.com/<username>/
+DEFAULT_URL = 'https://github.com/CHANGE_ME/'
 
 DEFAULT_VERSION = '0.0.1'
 DEFAULT_LICENSE = 'GNU General Public License v2 or later (GPLv2+)'
@@ -195,7 +195,13 @@ def create_redir2RTD_zip():
 def create_setup():
     """Copy files from template and update them with user input."""
     global app_name, app_version, app_license, app_author, app_email, \
-           app_url, app_keywords
+           app_url, app_keywords, DEFAULT_AUTHOR, DEFAULT_EMAIL, \
+           DEFAULT_LICENSE, DEFAULT_URL, DEFAULT_VERSION
+
+    if os.path.isfile(common.DATA_FILE):  # if file exists
+        data_lst = common.load_data()
+        (DEFAULT_AUTHOR, DEFAULT_EMAIL, DEFAULT_LICENSE, DEFAULT_URL,
+         DEFAULT_VERSION) = data_lst
 
     while not app_name:
         app_name = builtins.input(lcl.Q_APP_NAME)
@@ -218,14 +224,18 @@ def create_setup():
     if not app_email:
         app_email = DEFAULT_EMAIL
 
-    app_url = builtins.input(lcl.Q_APP_URL + '[' + DEFAULT_URL + app_name +
-                             '] ')
+    app_url = builtins.input(lcl.Q_APP_URL + '[' + DEFAULT_URL + '] ')
     if not app_url:
-        app_url = DEFAULT_URL + app_name
+        app_url = DEFAULT_URL
 
     app_keywords = builtins.input(lcl.Q_APP_KEYWORDS)
     if not app_keywords:
         app_keywords = app_name
+
+    data_lst = [app_author, app_email, app_license, app_url, app_version]
+    common.save_data(data_lst)
+
+    app_url += app_name
 
     # backup existing files
     backup = False
@@ -323,6 +333,9 @@ if __name__ == '__main__':
 
 
 # TODO: add appveyor templates
-# TODO: py2exe in Py3
 # TODO: CXF in Py2 and Py3
 # TODO: checks and error messages
+# TODO: Auto rebuild doc/reference.rst on each dist build.
+# TODO: Auto rebuild requirements.txt on each dist build.
+# TODO: Change easysetup from Windows only to universal (move build.cmd functionality to easysetup.py).
+# TODO: Compile TODOs from py files into README

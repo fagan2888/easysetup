@@ -1,16 +1,14 @@
 easysetup
 =========
 
-*easysetup* helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, in Windows.
+Helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, for Windows users.
 
 Description, features and To do
 -------------------------------
 
 **Description**
 
-*easysetup* helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, in Windows.
-
-After installation you should edit easysetup.py (where it was installed) to update the default values for DEFAULT_AUTHOR, DEFAULT_EMAIL, DEFAULT_URL, DEFAULT_VERSION and DEFAULT_LICENSE.
+*easysetup* helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, for Windows users.
 
 When running easysetup without options, everything on the current directory is moved to a _bak directory.
 
@@ -35,17 +33,17 @@ After running easysetup, you can find a build.cmd in the current directory that 
 * Can create template files in the doc directory (assumes use of Sphinx and that the sphinx-quickstart command was already executed).
 * Can create an updated reference.rst in the doc directory (assumes previous item with the autodoc extension).
 * Updates usage section in README.rst based on usage.txt, if it exists inside your application directory.
+* Saves answers (DEFAULT_AUTHOR, DEFAULT_EMAIL, DEFAULT_LICENSE, DEFAULT_URL and DEFAULT_VERSION) for future use in other applications.
 
 **To do**
 
-* correct py2exe to include subdirs (doc and template).
 * Add appveyor templates.
 * Auto rebuild doc/reference.rst on each dist build.
 * Auto rebuild requirements.txt on each dist build.
 * Change easysetup from Windows only to universal (move build.cmd functionality to easysetup.py).
-* py2exe in Py3.
 * CXF in Py2 and Py3.
 * Checks and error messages.
+* Compile TODOs from py files into README.
 
 
 Installation, usage and options
@@ -56,8 +54,6 @@ Installation, usage and options
 .. code:: bash
 
     $ pip install easysetup
-
-Edit easysetup.py (where it was installed) to update the default values for DEFAULT_AUTHOR, DEFAULT_EMAIL, DEFAULT_URL, DEFAULT_VERSION and DEFAULT_LICENSE.
 	
 **Usage**
 

@@ -48,6 +48,7 @@ if LANG == 'PT':  # Portuguese
     Q_APP_KEYWORDS = 'Palavras-chave? '
     Q_APP_LICENSE = 'Licença? '
     Q_APP_NAME = 'Nome da aplicação? '
+    #Q_APP_URL_NO_DATA = 'URL (s/ o nome da aplicação, ex. https://github.com/<nome de utilizador>/)? '
     Q_APP_URL = 'URL? '
     Q_APP_VERSION = 'Versão? '
     REMINDERS = """
@@ -85,6 +86,7 @@ else:  # English
     Q_APP_KEYWORDS = 'Keywords? '
     Q_APP_LICENSE = 'License? '
     Q_APP_NAME = 'Application name? '
+    #Q_APP_URL_NO_DATA = 'URL (w/o the application name, eg. https://github.com/<username>/)? '
     Q_APP_URL = 'URL? '
     Q_APP_VERSION = 'Version? '
     REMINDERS = """

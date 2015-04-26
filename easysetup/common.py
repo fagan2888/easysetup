@@ -29,6 +29,7 @@ from __future__ import unicode_literals
 import imp
 import io  # Python 3 compatibility
 import os
+import pickle as pkl
 import sys
 import time
 
@@ -56,6 +57,7 @@ else:
     DATA_PATH = __file__.replace(__file__.split(os.sep)[-1], '')
 
 LICENSE_FILE = DATA_PATH + 'LICENSE.txt'
+DATA_FILE = DATA_PATH + 'data.pkl'
 
 if lcl.LANG == 'PT':
     BANNER_FILE = DATA_PATH + 'banner_pt.txt'
@@ -107,6 +109,19 @@ def license_():
 def sleep(seconds=5):
     """Pause for specified time."""
     time.sleep(seconds)
+
+
+def load_data():
+    """Load data (list)."""
+    with open(DATA_FILE, 'rb') as file_:
+        data_lst = pkl.load(file_)
+    return data_lst
+
+
+def save_data(data_lst):
+    """Save data (list)."""
+    with open(DATA_FILE, 'wb') as file_:
+        pkl.dump(data_lst, file_)
 
 
 if __name__ == '__main__':
