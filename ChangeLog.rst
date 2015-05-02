@@ -1,3 +1,8 @@
+0.0.12 2015-05-02 ::
+
+    Include missing file in git (APPLICATION_NAME.py).
+
+
 0.0.11 2015-05-02 ::
 
     Correct README.rst.
