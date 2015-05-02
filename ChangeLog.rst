@@ -1,3 +1,10 @@
+0.0.13 2015-05-02 ::
+
+    Update usage template.
+	Correct index.html.
+	Update build.cmd.
+
+	
 0.0.12 2015-05-02 ::
 
     Include missing file in git (APPLICATION_NAME.py).
