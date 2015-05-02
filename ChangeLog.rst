@@ -1,4 +1,10 @@
-0.0.10 2015-04-27 ::
+0.0.11 2015-05-02 ::
+
+    Correct README.rst.
+	Correct upd_usage_in_readme() text alignment.
+
+	
+0.0.10 2015-05-02 ::
 
     Recreates reference.rst in the doc directory on each build. Can be disabled
 	inside build.cmd by remarking the REBUILD_REFERENCE=YES line.

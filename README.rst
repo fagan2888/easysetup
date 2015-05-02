@@ -47,7 +47,6 @@ After running easysetup, you can find a build.cmd in the current directory that 
 * Checks and error messages.
 * Compile TODOs from py files into README.
 
-
 Installation, usage and options
 -------------------------------
 
@@ -68,33 +67,6 @@ Installation, usage and options
 .. code:: bash
 
     $ easysetup -h
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     usage: easysetup [-option]
 
@@ -126,3 +98,4 @@ Resources and contributing
 
 .. _repository: https://github.com/jcrmatos/easysetup
 
+Copyright 2009-2015 Joao Carlos Roseta Matos. Licensed under the GNU General Public License v2 or later (GPLv2+).
