@@ -23,12 +23,12 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 # sometimes py2exe requires the following import to be commented
-#from __future__ import unicode_literals
+# from __future__ import unicode_literals
 
-#import builtins  # Python 3 compatibility
+# import builtins  # Python 3 compatibility
 import datetime as dt
-#import future  # Python 3 compatibility
-#import io  # Python 3 compatibility
+# import future  # Python 3 compatibility
+# import io  # Python 3 compatibility
 
 
 APP_NAME = 'APPLICATION_NAME'
@@ -39,21 +39,27 @@ APP_EMAIL = 'APPLICATION_EMAIL'
 APP_URL = 'APPLICATION_URL'
 APP_KEYWORDS = 'APPLICATION_KEYWORDS'
 
-# check all below
+# change classifiers to be correct for your application/module
 CLASSIFIERS = ['Development Status :: 4 - Beta',
                'Environment :: Console',
+               'Environment :: MacOS X',
+               'Environment :: Other Environment',
                'Environment :: Win32 (MS Windows)',
+               'Environment :: X11 Applications',
                'Intended Audience :: Developers',
+               'Intended Audience :: End Users/Desktop',             
                'Natural Language :: English',
                'License :: OSI Approved ::' + ' ' + APP_LICENSE,
                'Operating System :: OS Independent',
                'Programming Language :: Python',
+               'Programming Language :: Python :: 2',
                'Programming Language :: Python :: 2.7',
+               'Programming Language :: Python :: 3',
                'Programming Language :: Python :: 3.4',
                'Topic :: Other/Nonlisted Topic',
-              ]
+               'Topic :: Software Development :: Libraries :: Python Modules']
 
-COPYRIGHT = 'Copyright 2009-' + str(dt.date.today().year) + ' '  + APP_AUTHOR
+COPYRIGHT = 'Copyright 2009-' + str(dt.date.today().year) + ' ' + APP_AUTHOR
 
 APP_TYPE = 'application'  # it can be application or module
 

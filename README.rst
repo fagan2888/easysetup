@@ -1,7 +1,7 @@
 easysetup
 =========
 
-Helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, for Windows users.
+Helps creating a package distribution setup, that also runs tests, checkers and creates HTML and PDF documentation, for Windows users.
 
 Description, features and To do
 -------------------------------
@@ -34,11 +34,13 @@ After running easysetup, you can find a build.cmd in the current directory that 
 * Can create an updated reference.rst in the doc directory (assumes previous item with the autodoc extension).
 * Updates usage section in README.rst based on usage.txt, if it exists inside your application directory.
 * Saves answers (DEFAULT_AUTHOR, DEFAULT_EMAIL, DEFAULT_LICENSE, DEFAULT_URL and DEFAULT_VERSION) for future use in other applications.
+* Recreates reference.rst in the doc directory on each build (can be disabled inside build.cmd by changing the REBUILD_REFERENCE=YES to other value).
+* If the setup directory is empty then a main template file is created inside the application directory.
+* Checks source code with flake8 and pylint.
 
 **To do**
 
 * Add appveyor templates.
-* Auto rebuild doc/reference.rst on each dist build.
 * Auto rebuild requirements.txt on each dist build.
 * Change easysetup from Windows only to universal (move build.cmd functionality to easysetup.py).
 * CXF in Py2 and Py3.
@@ -66,16 +68,45 @@ Installation, usage and options
 .. code:: bash
 
     $ easysetup -h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     usage: easysetup [-option]
 
     optional arguments:
       -d, --doc             creates template files in the doc directory
       -h, --help            show this help message
       -l, --license         show license
+      -q, --quiet           no banner
       -r, --reference       creates an updated reference.rst in the doc directory
       -V, --version         show version
 
-    No arguments creates setup files.
+    No arguments (or only -q, --quiet) creates setup files.
     easysetup should always be run from the application setup directory.
 
 Resources and contributing
@@ -95,4 +126,3 @@ Resources and contributing
 
 .. _repository: https://github.com/jcrmatos/easysetup
 
-Copyright 2009-2015 Joao Carlos Roseta Matos. Licensed under the GNU General Public License v2 or later (GPLv2+).

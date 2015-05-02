@@ -24,16 +24,16 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-#import builtins  # Python 3 compatibility
-#import future  # Python 3 compatibility
-#import io  # Python 3 compatibility
+# import builtins  # Python 3 compatibility
+# import future  # Python 3 compatibility
+# import io  # Python 3 compatibility
 import locale
 
 
 def sys_lang():
     """Get system language."""
     lang = locale.getdefaultlocale()
-    #lang = 'EN'  # only for testing
+    # lang = 'EN'  # only for testing
     if 'pt_' in lang[0]:  # Portuguese
         return 'PT'
     else:  # English
@@ -42,13 +42,14 @@ def sys_lang():
 LANG = sys_lang()
 
 if LANG == 'PT':  # Portuguese
+    BANNER = ' não tem QUALQUER GARANTIA. É software livre e você está ' + \
+             'autorizado a redistribui-lo dentro de certas condições.'
     FILE_NOT_FOUND = 'Erro: ficheiro não encontrado - '
     Q_APP_AUTHOR = 'Nome do autor? '
     Q_APP_EMAIL = 'E-mail? '
     Q_APP_KEYWORDS = 'Palavras-chave? '
     Q_APP_LICENSE = 'Licença? '
     Q_APP_NAME = 'Nome da aplicação? '
-    #Q_APP_URL_NO_DATA = 'URL (s/ o nome da aplicação, ex. https://github.com/<nome de utilizador>/)? '
     Q_APP_URL = 'URL? '
     Q_APP_VERSION = 'Versão? '
     REMINDERS = """
@@ -80,13 +81,14 @@ if LANG == 'PT':  # Portuguese
     VERSION_WITH_SPACES = ' versão '
     WRONG_ARG = 'Erro: argumento incorreto '
 else:  # English
+    BANNER = ' comes with ABSOLUTELY NO WARRANTY. This is free software, ' + \
+             'and you are welcome to redistribute it under certain conditions.'
     FILE_NOT_FOUND = 'Error: file not found - '
     Q_APP_AUTHOR = 'Author name? '
     Q_APP_EMAIL = 'E-mail? '
     Q_APP_KEYWORDS = 'Keywords? '
     Q_APP_LICENSE = 'License? '
     Q_APP_NAME = 'Application name? '
-    #Q_APP_URL_NO_DATA = 'URL (w/o the application name, eg. https://github.com/<username>/)? '
     Q_APP_URL = 'URL? '
     Q_APP_VERSION = 'Version? '
     REMINDERS = """

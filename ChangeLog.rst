@@ -1,3 +1,14 @@
+0.0.10 2015-04-27 ::
+
+    Recreates reference.rst in the doc directory on each build. Can be disabled
+	inside build.cmd by remarking the REBUILD_REFERENCE=YES line.
+	Checks PEP8 (flake8) and Py3 compatibility (pylint --py3k).
+	Py3 compatibility check can be disabled inside build.cmd by remarking the 
+	CHECK_PY3_COMPATIBILITY=YES line.
+	Code cleanup.
+	Change sphinx theme when in RTD.
+
+	
 0.0.9 2015-04-26 ::
 
     Remove Sphinx upload section from setup.cfg.

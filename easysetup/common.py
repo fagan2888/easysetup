@@ -24,8 +24,8 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-#import builtins  # Python 3 compatibility
-#import future  # Python 3 compatibility
+# import builtins  # Python 3 compatibility
+# import future  # Python 3 compatibility
 import imp
 import io  # Python 3 compatibility
 import os
@@ -45,8 +45,8 @@ SYS_ENC = sys.getfilesystemencoding()
 DATA_PATH = ''
 # if current module is frozen, use exe path
 if (hasattr(sys, 'frozen') or  # new py2exe
-     hasattr(sys, 'importers') or  # old py2exe
-     imp.is_frozen('__main__')):  # tools/freeze
+   hasattr(sys, 'importers') or  # old py2exe
+   imp.is_frozen('__main__')):  # tools/freeze
     if PY < 3:
         DATA_PATH = os.path.dirname(unicode(sys.executable, SYS_ENC))  # Check
     else:
@@ -60,10 +60,8 @@ LICENSE_FILE = DATA_PATH + 'LICENSE.txt'
 DATA_FILE = DATA_PATH + 'data.pkl'
 
 if lcl.LANG == 'PT':
-    BANNER_FILE = DATA_PATH + 'banner_pt.txt'
     USAGE_FILE = DATA_PATH + 'usage_pt.txt'
 else:
-    BANNER_FILE = DATA_PATH + 'banner.txt'
     USAGE_FILE = DATA_PATH + 'usage.txt'
 
 
@@ -80,13 +78,9 @@ def usage():
 
 def banner():
     """Returns banner text."""
-    banner_txt = ('\n' + appinfo.APP_NAME + lcl.VERSION_WITH_SPACES +
-                  appinfo.APP_VERSION +  ', ' + appinfo.COPYRIGHT + '\n')
-    if os.path.isfile(BANNER_FILE):  # if file exists
-        with io.open(BANNER_FILE, encoding=SYS_ENC) as file_:
-            banner_txt += file_.read()
-    else:
-        print(lcl.FILE_NOT_FOUND, BANNER_FILE)
+    banner_txt = '\n' + appinfo.APP_NAME + lcl.VERSION_WITH_SPACES + \
+                 appinfo.APP_VERSION + ', ' + appinfo.COPYRIGHT + '\n' + \
+                 appinfo.APP_NAME + lcl.BANNER
     return banner_txt
 
 

@@ -16,11 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""
-Helps creating a package distribution setup for Windows users.
-
-See usage.txt for command line usage.
-"""
+"""Helps creating a package distribution setup for Windows users."""
 
 # Python 3 compatibility
 from __future__ import absolute_import
@@ -30,13 +26,13 @@ from __future__ import unicode_literals
 
 import builtins  # Python 3 compatibility
 import datetime as dt
-#import future  # Python 3 compatibility
+# import future  # Python 3 compatibility
 import glob
 import io  # Python 3 compatibility
 import os
 import shutil as shu
 import sys
-import zipfile as zip
+import zipfile as zipf
 
 import colorama as clrm
 
@@ -52,7 +48,7 @@ DEFAULT_VERSION = '0.0.1'
 DEFAULT_LICENSE = 'GNU General Public License v2 or later (GPLv2+)'
 
 BAK_DIR = '_bak'
-
+APPLICATION_TEMPLATE_FILE = '/APPLICATION_NAME.py'
 
 app_name = ''
 app_version = ''
@@ -112,7 +108,7 @@ def update_file(filename):
 def get_app_info():
     """Read application info from appinfo.py."""
     global app_name, app_version, app_license, app_author, app_email, \
-           app_url, app_keywords
+        app_url, app_keywords
 
     with io.open(common.APP_INFO_FILENAME, encoding=common.SYS_ENC) as file_:
         text = file_.readlines()
@@ -150,9 +146,9 @@ def update_ref():
         text = 'Reference\n---------\n'
 
         for filename in filenames:
-            text +=  '\n'
-            text +=  filename + '\n' + ':' * len(filename) + '\n\n'
-            text +=  '.. automodule:: ' + filename + '\n'
+            text += '\n'
+            text += filename + '\n' + ':' * len(filename) + '\n\n'
+            text += '.. automodule:: ' + filename + '\n'
             text += '    :members:\n'
 
         with io.open('doc/reference.rst', 'w',
@@ -185,18 +181,18 @@ def update_doc():
     update_ref()
 
 
-def create_redir2RTD_zip():
+def create_redir2rtd_zip():
     """Create zip of index.html that redirects pythonhosted to RTD."""
     filename = 'pythonhosted.org/index.html'
-    with zip.ZipFile('pythonhosted.org/redir2RTD.zip', 'w') as archive:
+    with zipf.ZipFile('pythonhosted.org/redir2RTD.zip', 'w') as archive:
         archive.write(filename, filename.split('/')[-1])
 
 
 def create_setup():
     """Copy files from template and update them with user input."""
     global app_name, app_version, app_license, app_author, app_email, \
-           app_url, app_keywords, DEFAULT_AUTHOR, DEFAULT_EMAIL, \
-           DEFAULT_LICENSE, DEFAULT_URL, DEFAULT_VERSION
+        app_url, app_keywords, DEFAULT_AUTHOR, DEFAULT_EMAIL, \
+        DEFAULT_LICENSE, DEFAULT_URL, DEFAULT_VERSION
 
     if os.path.isfile(common.DATA_FILE):  # if file exists
         data_lst = common.load_data()
@@ -276,8 +272,7 @@ def create_setup():
 
     exceptions = ['__init__.py', 'build.cmd', 'requirements.txt',
                   'requirements-dev.txt', 'setup.py', 'setup_py2exe.py',
-                  'setup_utils.py',
-                 ]
+                  'setup_utils.py']
 
     # delete .pyc files and update files
     for filename in filenames:
@@ -288,15 +283,19 @@ def create_setup():
                 if filename.split(os.sep)[-1] not in exceptions:
                     update_file(filename)
 
-    create_redir2RTD_zip()
+    create_redir2rtd_zip()
 
     if backup:
+        os.remove(app_name + APPLICATION_TEMPLATE_FILE)  # remove app template
         # restore py files from backup, but only if they don't already exist
         filenames = glob.glob(BAK_DIR + '/*.py')
         for filename in filenames:
             dest = app_name + '/' + filename.split(os.sep)[-1]
             if not os.path.isfile(dest):
                 shu.copyfile(filename, dest)
+    else:
+        os.rename(app_name + APPLICATION_TEMPLATE_FILE,
+                  app_name + '/' + app_name + '.py')  # rename app template
 
     print(lcl.REMINDERS)
 
@@ -305,24 +304,46 @@ def main():
     """Process command line args."""
     clrm.init()
 
-    print(common.banner())
-
     args = sys.argv[1:]
     if args:
-        arg0 = args[0]
-        if arg0 in ['-d', '--doc']:
-            get_app_info()
-            update_doc()
-        elif arg0 in ['-l', '--license']:
-            print(common.license_())
-        elif arg0 in ['-h', '--help']:
-            print(common.usage())
-        elif arg0 in ['-r', '--reference']:
-            get_app_info()
-            update_ref()
-        elif arg0 in ['-V', '--version']:
-            print(lcl.VERSION, common.version())
+        args_set = set(args)
+
+        max_args = 2  # -q and one other
+        doc_arg_set = set(['-d', '--doc'])
+        help_arg_set = set(['-h', '--help'])
+        license_arg_set = set(['-l', '--license'])
+        quiet_arg_set = set(['-q', '--quiet'])
+        reference_arg_set = set(['-r', '--reference'])
+        version_arg_set = set(['-V', '--version'])
+        legal_args_set = (doc_arg_set | help_arg_set | license_arg_set |
+                          quiet_arg_set | reference_arg_set | version_arg_set)
+
+        # if any wrong arg, too many args or (max args and -q not among them)
+        if (args_set - legal_args_set or len(args) > max_args or
+           (len(args) == max_args and not (quiet_arg_set & args_set))):
+            print(common.banner())
+            print(clrm.Fore.RED + lcl.WRONG_ARG + '\n')
+            print(clrm.Fore.RESET + common.usage())
+        else:
+            if not (quiet_arg_set & args_set):
+                print(common.banner())
+
+            if doc_arg_set & args_set:
+                get_app_info()
+                update_doc()
+            elif license_arg_set & args_set:
+                print(common.license_())
+            elif help_arg_set & args_set:
+                print(common.usage())
+            elif reference_arg_set & args_set:
+                get_app_info()
+                update_ref()
+            elif version_arg_set & args_set:
+                print(lcl.VERSION, common.version())
+            else:  # only -q
+                create_setup()
     else:
+        print(common.banner())
         create_setup()
 
 
@@ -332,10 +353,11 @@ if __name__ == '__main__':
     sys.exit(main())
 
 
-# TODO: add appveyor templates
-# TODO: CXF in Py2 and Py3
-# TODO: checks and error messages
-# TODO: Auto rebuild doc/reference.rst on each dist build.
-# TODO: Auto rebuild requirements.txt on each dist build.
-# TODO: Change easysetup from Windows only to universal (move build.cmd functionality to easysetup.py).
-# TODO: Compile TODOs from py files into README
+# ToDo: add appveyor templates
+# ToDo: Compile ToDos from py files into README
+# ToDo: checks with pylint and flake8
+# ToDo: py3 compat checks with pylint --py3k and python -3
+# ToDo: CXF in Py2 and Py3
+# ToDo: checks and error messages
+# ToDo: Auto rebuild requirements.txt on each dist build.
+# ToDo: Move build.cmd functionality to easysetup.py.

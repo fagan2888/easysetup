@@ -6,13 +6,13 @@ common
 
 .. automodule:: common
     :members:
-	
+
 easysetup
 :::::::::
 
 .. automodule:: easysetup
     :members:
-	
+
 localization
 ::::::::::::
 

@@ -26,8 +26,8 @@ from __future__ import print_function
 # or in this file and appinfo
 from __future__ import unicode_literals
 
-#import builtins  # Python 3 compatibility
-#import future  # Python 3 compatibility
+# import builtins  # Python 3 compatibility
+# import future  # Python 3 compatibility
 import glob
 import io  # Python 3 compatibility
 import os
@@ -47,7 +47,7 @@ if os.path.isfile(appinfo.README_FILE):
         LONG_DESC = file_.read()
         DESC = LONG_DESC.split('\n')[3]
 
-#PACKAGES = [appinfo.APP_NAME]  # use only if find_packages() doesn't work
+# PACKAGES = [appinfo.APP_NAME]  # use only if find_packages() doesn't work
 
 REQUIREMENTS = ''
 if os.path.isfile(appinfo.REQUIREMENTS_FILE):
@@ -60,56 +60,60 @@ SCRIPT = PATH + appinfo.APP_NAME + '.py'
 if os.path.isdir(appinfo.APP_NAME + '/doc'):
     DATA_FILES_PY2EXE = [('', glob.glob(PATH + '*.txt')),
                          ('doc', glob.glob(PATH + 'doc/.*') +
-                                 glob.glob(PATH + 'doc/*.html') +
-                                 glob.glob(PATH + 'doc/*.pdf') +
-                                 glob.glob(PATH + 'doc/*.inv') +
-                                 glob.glob(PATH + 'doc/*.js')),
-                         ('doc/_modules', glob.glob(PATH + 'doc/_modules/*.*')),
-                         ('doc/_sources', glob.glob(PATH + 'doc/_sources/*.*')),
+                          glob.glob(PATH + 'doc/*.html') +
+                          glob.glob(PATH + 'doc/*.pdf') +
+                          glob.glob(PATH + 'doc/*.inv') +
+                          glob.glob(PATH + 'doc/*.js')),
+                         ('doc/_modules', glob.glob(PATH +
+                          'doc/_modules/*.*')),
+                         ('doc/_sources', glob.glob(PATH +
+                          'doc/_sources/*.*')),
                          ('doc/_static', glob.glob(PATH + 'doc/_static/*.*')),
                          ('template', glob.glob(PATH + 'template/.*') +
-                                      glob.glob(PATH + 'template/*.yml') +
-                                      glob.glob(PATH + 'template/*.py') +
-                                      glob.glob(PATH + 'template/*.rst') +
-                                      glob.glob(PATH + 'template/*.cmd') +
-                                      glob.glob(PATH + 'template/*.in') +
-                                      glob.glob(PATH + 'template/*.txt') +
-                                      glob.glob(PATH + 'template/*.cfg') +
-                                      glob.glob(PATH + 'template/*.ini')),
+                          glob.glob(PATH + 'template/*.yml') +
+                          glob.glob(PATH + 'template/*.py') +
+                          glob.glob(PATH + 'template/*.rst') +
+                          glob.glob(PATH + 'template/*.cmd') +
+                          glob.glob(PATH + 'template/*.in') +
+                          glob.glob(PATH + 'template/*.txt') +
+                          glob.glob(PATH + 'template/*.cfg') +
+                          glob.glob(PATH + 'template/*.ini')),
                          ('template/APPLICATION_NAME',
                           glob.glob(PATH + 'template/APPLICATION_NAME/*.*')),
-                         ('template/doc', glob.glob(PATH + 'template/doc/*.*')),
+                         ('template/doc', glob.glob(PATH +
+                          'template/doc/*.*')),
                          ('template/pythonhosted.org',
                           glob.glob(PATH + 'template/pythonhosted.org/*.*'))]
 else:
     DATA_FILES_PY2EXE = [('', glob.glob(PATH + '*.txt')),
                          ('template', glob.glob(PATH + 'template/.*') +
-                                      glob.glob(PATH + 'template/*.yml') +
-                                      glob.glob(PATH + 'template/*.py') +
-                                      glob.glob(PATH + 'template/*.rst') +
-                                      glob.glob(PATH + 'template/*.cmd') +
-                                      glob.glob(PATH + 'template/*.in') +
-                                      glob.glob(PATH + 'template/*.txt') +
-                                      glob.glob(PATH + 'template/*.cfg') +
-                                      glob.glob(PATH + 'template/*.ini')),
+                          glob.glob(PATH + 'template/*.yml') +
+                          glob.glob(PATH + 'template/*.py') +
+                          glob.glob(PATH + 'template/*.rst') +
+                          glob.glob(PATH + 'template/*.cmd') +
+                          glob.glob(PATH + 'template/*.in') +
+                          glob.glob(PATH + 'template/*.txt') +
+                          glob.glob(PATH + 'template/*.cfg') +
+                          glob.glob(PATH + 'template/*.ini')),
                          ('template/APPLICATION_NAME',
                           glob.glob(PATH + 'template/APPLICATION_NAME/*.*')),
-                         ('template/doc', glob.glob(PATH + 'template/doc/*.*')),
+                         ('template/doc', glob.glob(PATH +
+                          'template/doc/*.*')),
                          ('template/pythonhosted.org',
                           glob.glob(PATH + 'template/pythonhosted.org/*.*'))]
 
 OPTIONS = {'py2exe': {'compressed': True,
                       'ascii': False,
-                      #'packages': ['colorama'],
-                      #'bundle_files': 1,  # exe does not work
-                      #'includes': ['colorama'],
-                      #'excludes': ['doctest', 'pdb', 'unittest', 'difflib',
-                      #             'inspect', 'pyreadline', 'optparse',
-                      #             'calendar', 'email', '_ssl',
-                      #             # 'locale', 'pickle'
-                      #            ]
-                     }
-          }
+                      # 'packages': ['colorama'],
+                      # 'bundle_files': 1,  # exe does not work
+                      # 'includes': ['colorama'],
+                      # 'excludes': ['doctest', 'pdb', 'unittest', 'difflib',
+                      #              'inspect', 'pyreadline', 'optparse',
+                      #              'calendar', 'email', '_ssl',
+                      #              # 'locale', 'pickle'
+                      #              ]
+                      }
+           }
 
 # add modules_dir to PYTHONPATH so all modules inside it are included
 # in py2exe library
@@ -128,24 +132,24 @@ setuptools.setup(name=appinfo.APP_NAME,
                  keywords=appinfo.APP_KEYWORDS,
 
                  packages=setuptools.find_packages(),
-                 #packages=setuptools.find_packages(exclude=['docs',
+                 # packages=setuptools.find_packages(exclude=['docs',
                  #                                           'tests*']),
 
                  # use only if find_packages() doesn't work
-                 #packages=PACKAGES,
-                 #package_dir={'': appinfo.APP_NAME},
+                 # packages=PACKAGES,
+                 # package_dir={'': appinfo.APP_NAME},
 
                  install_requires=REQUIREMENTS,
 
                  # used only if the package is not in PyPI, but exists as an
                  # egg, sdist format or as a single .py file
                  # see http://peak.telecommunity.com/DevCenter/setuptools#dependencies-that-aren-t-in-pypi
-                 #dependency_links = ['http://host.domain.local/dir/'],
+                 # dependency_links = ['http://host.domain.local/dir/'],
 
                  console=[SCRIPT],
                  options=OPTIONS,
                  data_files=DATA_FILES_PY2EXE,
-                 #windows=[{'script': appinfo.APP_NAME + '.py',
-                 #          'icon_resources': [(0, appinfo.APP_NAME + '.ico')]
-                 #         }],
-                )
+                 # windows=[{'script': appinfo.APP_NAME + '.py',
+                 #           'icon_resources': [(0, appinfo.APP_NAME + '.ico')]
+                 #          }],
+                 )

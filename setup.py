@@ -24,8 +24,8 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-#import builtins  # Python 3 compatibility
-#import future  # Python 3 compatibility
+# import builtins  # Python 3 compatibility
+# import future  # Python 3 compatibility
 import io  # Python 3 compatibility
 import os
 import sys
@@ -43,19 +43,19 @@ if os.path.isfile(appinfo.README_FILE):
         LONG_DESC = file_.read()
         DESC = LONG_DESC.split('\n')[3]
 
-#PACKAGES = [appinfo.APP_NAME]  # use only if find_packages() doesn't work
+# PACKAGES = [appinfo.APP_NAME]  # use only if find_packages() doesn't work
 
 REQUIREMENTS = ''
 if os.path.isfile(appinfo.REQUIREMENTS_FILE):
     with io.open(appinfo.REQUIREMENTS_FILE, encoding=SYS_ENC) as file_:
         REQUIREMENTS = file_.read().splitlines()
 
-ENTRY_POINTS = {'console_scripts': [appinfo.APP_NAME + '=' + \
-                                    appinfo.APP_NAME + '.' + \
+ENTRY_POINTS = {'console_scripts': [appinfo.APP_NAME + '=' +
+                                    appinfo.APP_NAME + '.' +
                                     appinfo.APP_NAME + ':main'],
-                #'gui_scripts' : ['app_gui=' + appinfo.APP_NAME + '.' + \
-                #                 appinfo.APP_NAME + ':start']
-               }
+                # 'gui_scripts' : ['app_gui=' + appinfo.APP_NAME + '.' +
+                #                  appinfo.APP_NAME + ':start']
+                }
 
 setuptools.setup(name=appinfo.APP_NAME,
                  version=appinfo.APP_VERSION,
@@ -70,12 +70,12 @@ setuptools.setup(name=appinfo.APP_NAME,
                  keywords=appinfo.APP_KEYWORDS,
 
                  packages=setuptools.find_packages(),
-                 #packages=setuptools.find_packages(exclude=['docs',
-                 #                                           'tests*']),
+                 # packages=setuptools.find_packages(exclude=['docs',
+                 #                                            'tests*']),
 
                  # use only if find_packages() doesn't work
-                 #packages=PACKAGES,
-                 #package_dir={'': appinfo.APP_NAME},
+                 # packages=PACKAGES,
+                 # package_dir={'': appinfo.APP_NAME},
 
                  # to create an executable
                  entry_points=ENTRY_POINTS,
@@ -85,7 +85,7 @@ setuptools.setup(name=appinfo.APP_NAME,
                  # used only if the package is not in PyPI, but exists as an
                  # egg, sdist format or as a single .py file
                  # see http://peak.telecommunity.com/DevCenter/setuptools#dependencies-that-aren-t-in-pypi
-                 #dependency_links = ['http://host.domain.local/dir/'],
+                 # dependency_links = ['http://host.domain.local/dir/'],
 
                  include_package_data=True,  # use MANIFEST.in during install
-                )
+                 )
