@@ -31,8 +31,3 @@ venv/
 easysetup/__pycache__/
 easysetup/doc/
 easysetup/pythonhosted.org/*.zip
-easysetup/appinfo.py
-easysetup/AUTHORS.txt
-easysetup/ChangeLog.txt
-easysetup/LICENSE.txt
-easysetup/README.txt
