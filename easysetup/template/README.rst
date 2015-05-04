@@ -54,15 +54,20 @@ Resources and contributing
 
 **Resources**
 
-* `Repository <APPLICATION_URL>`_
+* `Repository PyPI <https://pypi.python.org/pypi/APPLICATION_NAME>`_
+* `Documentation PyPI <http://pythonhosted.org/APPLICATION_NAME>`_
+* `Other repository <APPLICATION_URL>`_
+* `Documentation Read the Docs <http://APPLICATION_NAME.readthedocs.org>`_
 
 **Contributing**
 
-1. Fork the `repository`_ on GitHub.
+If Other repository above is Github or compatible, follow these guidelines for contributing:
+
+1. Fork the `repository`_ .
 2. Make a branch of master and commit your changes to it.
 3. Ensure that your name is added to the end of the AUTHORS.rst file using the format:
    ``Name <email@domain.com>``
-4. Submit a Pull Request to the master branch on GitHub.
+4. Submit a Pull Request to the master branch.
 
 .. _repository: APPLICATION_URL
 

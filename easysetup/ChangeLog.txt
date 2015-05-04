@@ -1,3 +1,10 @@
+0.0.15 2015-05-04 ::
+
+    Correct change_sphinx_theme().
+	Correct requirements-dev.txt.
+	Clarify some messages.
+
+	
 0.0.14 2015-05-02 ::
 
     Update .gitignore.

@@ -22,7 +22,8 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-# sometimes py2exe requires the following import to be commented
+# sometimes py2exe or sdist return a Unicode error if the line below isn't
+# commented, which is very strange
 # from __future__ import unicode_literals
 
 # import builtins  # Python 3 compatibility
@@ -47,7 +48,7 @@ CLASSIFIERS = ['Development Status :: 4 - Beta',
                'Environment :: Win32 (MS Windows)',
                'Environment :: X11 Applications',
                'Intended Audience :: Developers',
-               'Intended Audience :: End Users/Desktop',             
+               'Intended Audience :: End Users/Desktop',
                'Natural Language :: English',
                'License :: OSI Approved ::' + ' ' + APP_LICENSE,
                'Operating System :: OS Independent',

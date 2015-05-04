@@ -1,6 +1,6 @@
 ::
 
-        easysetup - helps creating a package distribution setup for Windows users.
+        easysetup - Helps creating a package distribution setup for Windows users.
         Copyright 2009-2015 Joao Carlos Roseta Matos
 
         This program is free software; you can redistribute it and/or modify

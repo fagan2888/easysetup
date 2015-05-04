@@ -8,11 +8,19 @@ Description, features and To do
 
 **Description**
 
-*easysetup* helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, for Windows users.
+Helps creating a package distribution setup, that also runs tests and creates HTML and PDF documentation, for Windows users.
 
 When running easysetup without options, everything on the current directory is moved to a _bak directory.
 
 After running easysetup, you can find a build.cmd in the current directory that should be run to build your application (execute build -h to see usage options).
+
+Before runnning build.cmd for the first time, you should execute 
+
+.. code:: bash
+
+    $ pip install -r requirements-dev.txt
+
+to install it's requirements.
 
 **Features:**
 
@@ -36,7 +44,8 @@ After running easysetup, you can find a build.cmd in the current directory that 
 * Saves answers (DEFAULT_AUTHOR, DEFAULT_EMAIL, DEFAULT_LICENSE, DEFAULT_URL and DEFAULT_VERSION) for future use in other applications.
 * Recreates reference.rst in the doc directory on each build (can be disabled inside build.cmd by changing the REBUILD_REFERENCE=YES to other value).
 * If the setup directory is empty then a main template file is created inside the application directory.
-* Checks source code with flake8 and pylint.
+* Checks source code with flake8 and Py3 compatibility with pylint.
+* Add URLs to README.rst for PyPI, PyPI documentation site and RTD.
 
 **To do**
 
@@ -86,15 +95,20 @@ Resources and contributing
 
 **Resources**
 
-* `Repository <https://github.com/jcrmatos/easysetup>`_
+* `Repository PyPI <https://pypi.python.org/pypi/easysetup>`_
+* `Documentation PyPI <http://pythonhosted.org/easysetup>`_
+* `Repository Github <https://github.com/jcrmatos/easysetup>`_
+* `Documentation Read the Docs <http://easysetup.readthedocs.org>`_
 
 **Contributing**
 
-1. Fork the `repository`_ on GitHub.
+If Other repository above is Github or compatible, follow these guidelines for contributing:
+
+1. Fork the `repository`_ .
 2. Make a branch of master and commit your changes to it.
 3. Ensure that your name is added to the end of the AUTHORS.rst file using the format:
    ``Name <email@domain.com>``
-4. Submit a Pull Request to the master branch on GitHub.
+4. Submit a Pull Request to the master branch.
 
 .. _repository: https://github.com/jcrmatos/easysetup
 
