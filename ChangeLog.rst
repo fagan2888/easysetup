@@ -1,3 +1,14 @@
+0.0.16 2015-05-08 ::
+
+    Changed data format to json.
+	Improved Unicode compliance.
+	Corrected yml files for Travis and Shippable.
+	Replaced unicode() for .decode().
+	Added comment_import_for_py2exe() and 
+	uncomment_import_for_py2exe() in setup_utils.py to solve
+	py2exe unicode errors (for the moment).
+
+	
 0.0.15 2015-05-04 ::
 
     Correct change_sphinx_theme().

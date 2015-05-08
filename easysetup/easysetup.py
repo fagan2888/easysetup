@@ -24,9 +24,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import builtins  # Python 3 compatibility
 import datetime as dt
-# import future  # Python 3 compatibility
 import glob
 import io  # Python 3 compatibility
 import os
@@ -34,6 +32,7 @@ import shutil as shu
 import sys
 import zipfile as zipf
 
+from builtins import input  # Python 3 compatibility
 import colorama as clrm
 
 import common
@@ -62,8 +61,8 @@ cur_date = str(dt.date.today())
 
 def update_file(filename):
     """Update file with user input."""
-    with io.open(filename, encoding=common.SYS_ENC) as file_:
-        text = file_.readlines()
+    with io.open(filename, encoding=lcl.UTF_ENC) as f_in:
+        text = f_in.readlines()
 
     new_text = ''
     changed = False
@@ -101,8 +100,8 @@ def update_file(filename):
             changed = True
         new_text += line
     if changed:
-        with io.open(filename, 'w', encoding=common.SYS_ENC) as file_:
-            file_.writelines(new_text)
+        with io.open(filename, 'w', encoding=lcl.UTF_ENC) as f_out:
+            f_out.writelines(new_text)
 
 
 def get_app_info():
@@ -110,8 +109,8 @@ def get_app_info():
     global app_name, app_version, app_license, app_author, app_email, \
         app_url, app_keywords
 
-    with io.open(common.APP_INFO_FILENAME, encoding=common.SYS_ENC) as file_:
-        text = file_.readlines()
+    with io.open(common.APP_INFO_FILENAME, encoding=lcl.UTF_ENC) as f_in:
+        text = f_in.readlines()
     for line in text:
         if 'APP_NAME = ' in line:
             app_name = line.split("'")[1]
@@ -151,9 +150,8 @@ def update_ref():
             text += '.. automodule:: ' + filename + '\n'
             text += '    :members:\n'
 
-        with io.open('doc/reference.rst', 'w',
-                     encoding=common.SYS_ENC) as file_:
-            file_.writelines(text)
+        with io.open('doc/reference.rst', 'w', encoding=lcl.UTF_ENC) as f_out:
+            f_out.writelines(text)
 
 
 def update_doc():
@@ -194,37 +192,40 @@ def create_setup():
         app_url, app_keywords, DEFAULT_AUTHOR, DEFAULT_EMAIL, \
         DEFAULT_LICENSE, DEFAULT_URL, DEFAULT_VERSION
 
-    if os.path.isfile(common.DATA_FILE):  # if file exists
-        data_lst = common.load_data()
+    data_lst = common.load_data()
+    if data_lst:
         (DEFAULT_AUTHOR, DEFAULT_EMAIL, DEFAULT_LICENSE, DEFAULT_URL,
          DEFAULT_VERSION) = data_lst
 
     while not app_name:
-        app_name = builtins.input(lcl.Q_APP_NAME)
+        app_name = input(lcl.Q_APP_NAME).decode(lcl.INPUT_ENC)
 
-    app_version = builtins.input(lcl.Q_APP_VERSION + '[' + DEFAULT_VERSION +
-                                 '] ')
+    app_version = input(lcl.Q_APP_VERSION + '[' + DEFAULT_VERSION +
+                        '] ').decode(lcl.INPUT_ENC)
     if not app_version:
         app_version = DEFAULT_VERSION
 
-    app_license = builtins.input(lcl.Q_APP_LICENSE + '[' + DEFAULT_LICENSE +
-                                 '] ')
+    app_license = input(lcl.Q_APP_LICENSE + '[' + DEFAULT_LICENSE +
+                        '] ').decode(lcl.INPUT_ENC)
     if not app_license:
         app_license = DEFAULT_LICENSE
 
-    app_author = builtins.input(lcl.Q_APP_AUTHOR + '[' + DEFAULT_AUTHOR + '] ')
+    app_author = input(lcl.Q_APP_AUTHOR + '[' + DEFAULT_AUTHOR +
+                       '] ').decode(lcl.INPUT_ENC)
     if not app_author:
         app_author = DEFAULT_AUTHOR
 
-    app_email = builtins.input(lcl.Q_APP_EMAIL + '[' + DEFAULT_EMAIL + '] ')
+    app_email = input(lcl.Q_APP_EMAIL + '[' + DEFAULT_EMAIL +
+                      '] ').decode(lcl.INPUT_ENC)
     if not app_email:
         app_email = DEFAULT_EMAIL
 
-    app_url = builtins.input(lcl.Q_APP_URL + '[' + DEFAULT_URL + '] ')
+    app_url = input(lcl.Q_APP_URL + '[' + DEFAULT_URL +
+                    '] ').decode(lcl.INPUT_ENC)
     if not app_url:
         app_url = DEFAULT_URL
 
-    app_keywords = builtins.input(lcl.Q_APP_KEYWORDS)
+    app_keywords = input(lcl.Q_APP_KEYWORDS).decode(lcl.INPUT_ENC)
     if not app_keywords:
         app_keywords = app_name
 

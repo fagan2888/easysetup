@@ -22,37 +22,35 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-# sometimes py2exe requires the following import to be commented in this file
-# or in this file and appinfo
-from __future__ import unicode_literals
+# the following import is commented due to random Unicode errors
+# from __future__ import unicode_literals
 
-# import builtins  # Python 3 compatibility
-# import future  # Python 3 compatibility
 import glob
 import io  # Python 3 compatibility
 import os
 import sys
 
+# from builtins import input  # Python 3 compatibility
 import setuptools
 import py2exe  # must be after setuptools
 
 import appinfo
 
 
-SYS_ENC = sys.getfilesystemencoding()
+UTF_ENC = 'utf-8'
 
 DESC = LONG_DESC = ''
 if os.path.isfile(appinfo.README_FILE):
-    with io.open(appinfo.README_FILE, encoding=SYS_ENC) as file_:
-        LONG_DESC = file_.read()
+    with io.open(appinfo.README_FILE, encoding=UTF_ENC) as f_in:
+        LONG_DESC = f_in.read()
         DESC = LONG_DESC.split('\n')[3]
 
 # PACKAGES = [appinfo.APP_NAME]  # use only if find_packages() doesn't work
 
 REQUIREMENTS = ''
 if os.path.isfile(appinfo.REQUIREMENTS_FILE):
-    with io.open(appinfo.REQUIREMENTS_FILE, encoding=SYS_ENC) as file_:
-        REQUIREMENTS = file_.read().splitlines()
+    with io.open(appinfo.REQUIREMENTS_FILE, encoding=UTF_ENC) as f_in:
+        REQUIREMENTS = f_in.read().splitlines()
 
 PATH = appinfo.APP_NAME + '/'
 SCRIPT = PATH + appinfo.APP_NAME + '.py'

@@ -24,10 +24,11 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-# import builtins  # Python 3 compatibility
-# import future  # Python 3 compatibility
 # import io  # Python 3 compatibility
 import locale
+import sys
+
+# from builtins import input  # Python 3 compatibility
 
 
 def sys_lang():
@@ -40,6 +41,10 @@ def sys_lang():
         return 'EN'
 
 LANG = sys_lang()
+
+FS_ENC = sys.getfilesystemencoding()
+INPUT_ENC = sys.stdin.encoding
+UTF_ENC = 'utf-8'
 
 if LANG == 'PT':  # Portuguese
     BANNER = ' não tem QUALQUER GARANTIA. É software livre e você está ' + \
@@ -57,23 +62,23 @@ if LANG == 'PT':  # Portuguese
 1. Editar appinfo.py para atualizar as categorias do PyPI.
 2. Editar requirements.txt para atualizar os requisitos da sua aplicação.
 3. Editar requirements-dev.txt para atualizar os requisitos de desenvolvimento.
-4. Para os instalar, execute
+   Para os instalar, execute
    pip install -r requirements-dev.txt
-5. Se pretende criar documentação, deverá executar
+4. Se pretende criar documentação, deverá executar
    sphinx-quickstart
    e depois
    easysetup -d
    Quando executar o sphinx-quickstart deverá responder às questões de acordo
    com o indicado abaixo (todas as outras deve aceitar o valor por omissão):
    Root path for the documentation [.]: doc
-   Project name: aaa
-   Author name(s): aaa
-   Project version: 0.0.1
+   Project name: a
+   Author name(s): a
+   Project version: 1
    autodoc: automatically insert docstrings from modules (y/n) [n]: y
    doctest: automatically test code snippets in doctest blocks (y/n) [n]: y
    coverage: checks for documentation coverage (y/n) [n]: y
-   viewcode: include links to the source code of documented Python objects (y/n) [n]: y
-6. A qualquer momento, para criar um ficheiro reference.rst atualizado no
+   viewcode: include links to the source code ... Python objects (y/n) [n]: y
+5. A qualquer momento, para criar um ficheiro reference.rst atualizado no
    diretório doc, execute
    easysetup -r
     """
@@ -96,23 +101,23 @@ else:  # English
 1. Edit appinfo.py to update PyPI classifiers.
 2. Edit requirements.txt to update your application requirements.
 3. Edit requirements-dev.txt to update your development requirements.
-4. To install them, execute
+   To install them, execute
    pip install -r requirements-dev.txt
-5. If you want to create documentation, you should execute
+4. If you want to create documentation, you should execute
    sphinx-quickstart
    and then
    easysetup -d
    When you execute sphinx-quickstart you should reply to the questions as
    shown below (all others you should accept the default):
    Root path for the documentation [.]: doc
-   Project name: aaa
-   Author name(s): aaa
-   Project version: 0.0.1
+   Project name: a
+   Author name(s): a
+   Project version: 1
    autodoc: automatically insert docstrings from modules (y/n) [n]: y
    doctest: automatically test code snippets in doctest blocks (y/n) [n]: y
    coverage: checks for documentation coverage (y/n) [n]: y
-   viewcode: include links to the source code of documented Python objects (y/n) [n]: y
-6. At any time, to create an updated reference.rst file in the doc directory,
+   viewcode: include links to the source code ... Python objects (y/n) [n]: y
+5. At any time, to create an updated reference.rst file in the doc directory,
    execute
    easysetup -r
     """
