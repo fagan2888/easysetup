@@ -19,10 +19,8 @@
 """Helps creating a package distribution setup for Windows users."""
 
 # Python 3 compatibility
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import datetime as dt
 import glob
@@ -264,6 +262,7 @@ def create_setup():
 
     # collect all filenames, including from 1st level subdirs
     filenames = glob.glob('*')
+    filenames = [filename for filename in filenames if BAK_DIR not in filename]
     filenames += glob.glob('.*')
     new_filenames = []
     for filename in filenames:
@@ -288,8 +287,8 @@ def create_setup():
 
     if backup:
         os.remove(app_name + APPLICATION_TEMPLATE_FILE)  # remove app template
-        # restore py files from backup, but only if they don't already exist
-        filenames = glob.glob(BAK_DIR + '/*.py')
+        # restore files from backup, but only if they don't already exist
+        filenames = glob.glob(BAK_DIR + '/*')
         for filename in filenames:
             dest = app_name + '/' + filename.split(os.sep)[-1]
             if not os.path.isfile(dest):
@@ -354,11 +353,7 @@ if __name__ == '__main__':
     sys.exit(main())
 
 
-# ToDo: add appveyor templates
-# ToDo: Compile ToDos from py files into README
-# ToDo: checks with pylint and flake8
-# ToDo: py3 compat checks with pylint --py3k and python -3
+# ToDo: Auto rebuild requirements.txt on each dist build.
 # ToDo: CXF in Py2 and Py3
 # ToDo: checks and error messages
-# ToDo: Auto rebuild requirements.txt on each dist build.
 # ToDo: Move build.cmd functionality to easysetup.py.

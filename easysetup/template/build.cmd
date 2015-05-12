@@ -97,6 +97,7 @@ python setup_utils.py update_copyright()
 
 :NO_COPYRIGHT_UPD
 python setup_utils.py upd_usage_in_readme()
+python setup_utils.py collect_to_do()
 
 copy /y README.rst %PROJECT%\README.txt > nul
 copy /y LICENSE.rst %PROJECT%\LICENSE.txt > nul
@@ -312,9 +313,6 @@ goto :MSG
 echo.
 echo *****
 echo If there were filesystem errors (eg. directory not empty), random syntax or Unicode errors, try repeating the build up to 3 times.
-echo One other option for Unicode errors is to do one of these:
-echo      1. Comment the line from __future__ import unicode_literals in appinfo.py and build again;
-echo      2. Comment the line from __future__ import unicode_literals in appinfo.py, build, remove the comment and build again.
 echo.
 goto :EXIT
 
@@ -323,9 +321,10 @@ echo.
 echo *** CXF
 echo.
 echo Not working yet...
-rem python cxf_setup.py build bdist_msi
-rem python cxf_setup.py build_exe
-rem cxfreeze cxf_setup.py build_exe
+rem python setup_cxf.py build
+rem python setup_cxf.py build bdist_msi
+rem python setup_cxf.py build_exe
+rem cxfreeze setup_cxf.py build_exe
 rem echo.
 rem echo *** Copy datafiles
 rem echo.

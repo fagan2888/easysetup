@@ -31,7 +31,7 @@ to install it's requirements.
 * Can publish to PyPI (including documentation if exists) and PyPI tests.
 
 * Creates index.html with redirection to RTD, to be used if preferred for hosting documentation.
-* Creates templates for Travis, Shippable and tox.
+* Creates templates for Travis, Shippable, AppVeyor and tox.
 * Creates a template for development requirements.
 * Creates a template for installation requirements.
 * Creates a template for git VCS exceptions.
@@ -46,15 +46,14 @@ to install it's requirements.
 * If the setup directory is empty then a main template file is created inside the application directory.
 * Checks source code with flake8 and Py3 compatibility with pylint.
 * Add URLs to README.rst for PyPI, PyPI documentation site and RTD.
+* Collects all To do from py files into README.rst To do section.
 
 **To do**
 
-* Add appveyor templates.
-* Auto rebuild requirements.txt on each dist build.
-* Change easysetup from Windows only to universal (move build.cmd functionality to easysetup.py).
-* CXF in Py2 and Py3.
-* Checks and error messages.
-* Compile TODOs from py files into README.
+easysetup.py: Auto rebuild requirements.txt on each dist build.
+easysetup.py: CXF in Py2 and Py3
+easysetup.py: checks and error messages
+easysetup.py: Move build.cmd functionality to easysetup.py.
 
 Installation, usage and options
 -------------------------------

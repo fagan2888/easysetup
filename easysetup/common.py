@@ -19,10 +19,8 @@
 """Common constants and functions."""
 
 # Python 3 compatibility
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import imp
 import io  # Python 3 compatibility
@@ -50,7 +48,7 @@ if (hasattr(sys, 'frozen') or  # new py2exe
     DATA_PATH = os.path.dirname(sys.executable.decode(lcl.UTF_ENC)) + os.sep
 else:
     # use ...\site-packages\XXXXX\
-    DATA_PATH = __file__.replace(__file__.split(os.sep)[-1], '')
+    DATA_PATH = os.path.dirname(__file__) + os.sep
 
 LICENSE_FILE = DATA_PATH + 'LICENSE.txt'
 DATA_FILE = DATA_PATH + 'data'
@@ -66,7 +64,7 @@ else:
 def usage():
     """Returns usage text, read from a file."""
     if os.path.isfile(USAGE_FILE):  # if file exists
-        with io.open(USAGE_FILE, encoding=lcl.UTF_ENC) as f_in:
+        with io.open(USAGE_FILE, encoding=lcl.FS_ENC) as f_in:
             text = f_in.read()
     else:
         print(lcl.FILE_NOT_FOUND, USAGE_FILE)
@@ -90,7 +88,7 @@ def version():
 def license_():
     """Returns license text, read from a file."""
     if os.path.isfile(LICENSE_FILE):  # if file exists
-        with io.open(LICENSE_FILE, encoding=lcl.UTF_ENC) as f_in:
+        with io.open(LICENSE_FILE, encoding=lcl.FS_ENC) as f_in:
             text = f_in.read()
     else:
         print(lcl.FILE_NOT_FOUND, LICENSE_FILE)

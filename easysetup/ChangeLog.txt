@@ -1,3 +1,19 @@
+0.0.18 2015-05-13 ::
+
+    Added PyPy and PyPy3 to .travis.yml.
+	Corrected some encoding issues.
+	Simplified some code.
+	Added setup_cxf.py.
+	Export Shippable test results to a file to make them visible from
+	the management page.
+	Simplified DATA_FILES in setup_py2exe.py.
+
+
+0.0.17 2015-05-09 ::
+
+    Add support for Appveyor.
+
+
 0.0.16 2015-05-08 ::
 
     Changed data format to json.
