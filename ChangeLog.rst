@@ -1,3 +1,10 @@
+0.0.19 2015-05-14 ::
+
+    Add .json to .gitignore.
+	Improved pkl compatiblity btw py2 and py3.
+	Code cleanup in common.py.
+
+	
 0.0.18 2015-05-13 ::
 
     Added PyPy and PyPy3 to .travis.yml.

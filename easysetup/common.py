@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""Common constants and functions."""
+"""Common use constants and functions."""
 
 # Python 3 compatibility
 from __future__ import (absolute_import, division, print_function,
@@ -37,6 +37,7 @@ import localization as lcl
 
 
 APP_INFO_FILENAME = 'appinfo.py'
+
 PY = int(sys.version[0])
 
 # set correct path to all data files
@@ -50,10 +51,18 @@ else:
     # use ...\site-packages\XXXXX\
     DATA_PATH = os.path.dirname(__file__) + os.sep
 
+PKL = 0
+JSON = 1
+FILE_EXT = {JSON: '.json', PKL: '.pkl'}
+
+DATA_FORMAT = JSON
+
+DATA_FILE = DATA_PATH + 'data' + FILE_EXT[DATA_FORMAT]
+
+LOG_FILE = DATA_PATH + 'log' + FILE_EXT[DATA_FORMAT]
+LOG = False
+
 LICENSE_FILE = DATA_PATH + 'LICENSE.txt'
-DATA_FILE = DATA_PATH + 'data'
-PKL_EXT = '.pkl'
-JSON_EXT = '.json'
 
 if lcl.LANG == 'PT':
     USAGE_FILE = DATA_PATH + 'usage_pt.txt'
@@ -63,12 +72,12 @@ else:
 
 def usage():
     """Returns usage text, read from a file."""
+    text = ''
     if os.path.isfile(USAGE_FILE):  # if file exists
         with io.open(USAGE_FILE, encoding=lcl.FS_ENC) as f_in:
             text = f_in.read()
     else:
         print(lcl.FILE_NOT_FOUND, USAGE_FILE)
-        text = ''
     return text
 
 
@@ -87,12 +96,12 @@ def version():
 
 def license_():
     """Returns license text, read from a file."""
+    text = ''
     if os.path.isfile(LICENSE_FILE):  # if file exists
         with io.open(LICENSE_FILE, encoding=lcl.FS_ENC) as f_in:
             text = f_in.read()
     else:
         print(lcl.FILE_NOT_FOUND, LICENSE_FILE)
-        text = ''
     return text
 
 
@@ -101,45 +110,37 @@ def sleep(seconds=5):
     time.sleep(seconds)
 
 
-def load_data(data_format=0):
-    """Load data (list).
-
-    data_format:
-        0 = json
-        1 = pickle
-    """
+def load_data(filename=DATA_FILE):
+    """Load data (list)."""
     data_lst = []
-    if data_format == 0:  # json
-        data_file = DATA_FILE + JSON_EXT
-        if os.path.isfile(data_file):  # if file exists
-            with io.open(data_file, encoding=lcl.UTF_ENC) as f_in:
+    if os.path.isfile(filename):  # if file exists
+        if DATA_FORMAT == JSON:
+            with io.open(filename, encoding=lcl.UTF_ENC) as f_in:
                 data_lst = json.loads(f_in.read())
-    elif data_format == 1:  # pkl
-        data_file = DATA_FILE + PKL_EXT
-        if os.path.isfile(data_file):  # if file exists
-            with open(data_file, 'rb') as f_in:
-                data_lst = pkl.load(f_in)
+        elif DATA_FORMAT == PKL:
+            with open(filename, 'rb') as f_in:
+                if PY < 3:
+                    data_lst = pkl.load(f_in)
+                else:
+                    data_lst = pkl.load(f_in, encoding='bytes')
+        else:
+            # error
+            pass
     else:
-        # Error
-        pass
+        print(lcl.FILE_NOT_FOUND, filename)
     return data_lst
 
 
-def save_data(data_lst, data_format=0):
-    """Save data (list).
-
-    data_format:
-        0 = json
-        1 = pickle
-    """
-    if data_format == 0:  # json
-        with io.open(DATA_FILE + JSON_EXT, 'w', encoding=lcl.UTF_ENC) as f_out:
+def save_data(data_lst, filename=DATA_FILE):
+    """Save data (list)."""
+    if DATA_FORMAT == JSON:
+        with io.open(filename, 'w', encoding=lcl.UTF_ENC) as f_out:
             f_out.write(json.dumps(data_lst, ensure_ascii=False))
-    elif data_format == 1:  # pkl
-        with open(DATA_FILE + PKL_EXT, 'wb') as f_out:
-            pkl.dump(data_lst, f_out)
+    elif DATA_FORMAT == PKL:
+        with open(filename, 'wb') as f_out:
+            pkl.dump(data_lst, f_out, protocol=2)  # max protocol btw Py2 & Py3
     else:
-        # Error
+        # error
         pass
 
 

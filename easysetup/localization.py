@@ -47,7 +47,7 @@ UTF_ENC = 'utf-8'
 if LANG == 'PT':  # Portuguese
     BANNER = ' não tem QUALQUER GARANTIA. É software livre e você está ' + \
              'autorizado a redistribui-lo dentro de certas condições.'
-    FILE_NOT_FOUND = 'Erro: ficheiro não encontrado - '
+    FILE_NOT_FOUND = 'Erro: ficheiro não encontrado -'
     Q_APP_AUTHOR = 'Nome do autor? '
     Q_APP_EMAIL = 'E-mail? '
     Q_APP_KEYWORDS = 'Palavras-chave? '
@@ -86,7 +86,7 @@ if LANG == 'PT':  # Portuguese
 else:  # English
     BANNER = ' comes with ABSOLUTELY NO WARRANTY. This is free software, ' + \
              'and you are welcome to redistribute it under certain conditions.'
-    FILE_NOT_FOUND = 'Error: file not found - '
+    FILE_NOT_FOUND = 'Error: file not found -'
     Q_APP_AUTHOR = 'Author name? '
     Q_APP_EMAIL = 'E-mail? '
     Q_APP_KEYWORDS = 'Keywords? '
